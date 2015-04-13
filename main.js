@@ -107,6 +107,9 @@ $(document).ready(function(){
 			moveRight = setInterval(function() {blocks[0].dirRight(blocks[0].posx, step);}, speed);
 		}*/
 	});
+	$(window).click(function(ev){
+		blocks[blocks.length-1].checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
+	});
 	setInterval(draw, 15);
 	var checkFail = setInterval(rektangle, 25);
 	var moveRight = setInterval(function() {blocks[blocks.length-1].dirRight(blocks[blocks.length-1].posx, step);}, speed);
