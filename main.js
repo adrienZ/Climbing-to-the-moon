@@ -77,6 +77,7 @@ $(document).ready(function(){
     	if(blocks.length<=7){
     		for(var i = 0; i < blocks.length; i++){
 				if(blocks[i].posy >0){
+					ctx.beginPath();
 					ctx.fillStyle = blocks[i].color;
 	    			ctx.fillRect(blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 	    		}
@@ -85,17 +86,20 @@ $(document).ready(function(){
     	else{ 
     		for(var i = blocks.length-7; i < blocks.length; i++){
 				if(blocks[i].posy >0){
+					ctx.beginPath();
 					ctx.fillStyle = blocks[i].color;
 	    			ctx.fillRect(blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 	    		}
 			}
 		}
-		/*ctx.moveTo(canvas.width()/2+blocks[0].sizex,0);
+		ctx.beginPath();
+		ctx.moveTo(canvas.width()/2+blocks[0].sizex,0);
 		ctx.lineTo(canvas.width()/2+blocks[0].sizex,canvas.height());
 		ctx.stroke();
+		ctx.beginPath();
 		ctx.moveTo(canvas.width()/2-blocks[0].sizex,0);
 		ctx.lineTo(canvas.width()/2-blocks[0].sizex,canvas.height());
-		ctx.stroke();*/
+		ctx.stroke();
 	}
 	$(window).keypress(function(ev){
 		if(ev.keyCode == 32){
@@ -108,7 +112,7 @@ $(document).ready(function(){
 			moveRight = setInterval(function() {blocks[0].dirRight(blocks[0].posx, step);}, speed);
 		}*/
 	});
-	$(window).click(function(ev){
+	$(window).on("tap", function(ev){
 		checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
 	});
 	setInterval(draw, 15);
