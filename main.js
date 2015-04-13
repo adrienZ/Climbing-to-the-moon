@@ -12,7 +12,8 @@ $(document).ready(function(){
 		this.posy = posy;
 		this.dirRight = function(oldPos, step) {this.posx = oldPos+step;};
 		this.moveUp = function(oldPos, step) {this.posy = oldPos+step;};
-		this.checkFinal = function(posX, sizeX, size){
+	} 
+	function checkFinal(posX, sizeX, size){
 			if(size == 1 && posX < (canvas.width()/2+sizeX) && (posX+sizeX) > (canvas.width()/2-sizeX)) var isGood = true;
 			else if((posX < (canvas.width()/2+100) && (posX+sizeX) > (canvas.width()/2-100)) 
 				&& (( posX+sizeX/2)+10 > blocks[size-2].posx && ( posX+sizeX/2)-10 < blocks[size-2].posx+blocks[size-2].sizex))
@@ -28,11 +29,11 @@ $(document).ready(function(){
 				clearInterval(moveRight);
 				clearInterval(checkFail);
 			}
-		};
-	} 
+		}
 	//var rekt = new gameBlock('blue', 50, 50, 0, 100);
 	var blocks = new Array();
-	blocks[0] = new gameBlock('blue', 100, 50, 0, canvas.height()-50);
+	blocks[0] = new gameBlock('blue', 100, 50, canvas.width()/2-50, canvas.height()-50);
+	nextBlock();
 	function newBlock(id, width, height, posY){
 		blocks[id] = new gameBlock('#'+Math.floor(Math.random()*16777215).toString(16),width,height,0,posY);
 	}
@@ -73,7 +74,7 @@ $(document).ready(function(){
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     	/*ctx.fillStyle = blocks[0].color;
     	ctx.fillRect(blocks[0].posx, blocks[0].posy, blocks[0].sizex, blocks[0].sizey);*/
-    	if(blocks.length<=8){
+    	if(blocks.length<=7){
     		for(var i = 0; i < blocks.length; i++){
 				if(blocks[i].posy >0){
 					ctx.fillStyle = blocks[i].color;
@@ -82,7 +83,7 @@ $(document).ready(function(){
 			}
     	}
     	else{ 
-    		for(var i = blocks.length-8; i < blocks.length; i++){
+    		for(var i = blocks.length-7; i < blocks.length; i++){
 				if(blocks[i].posy >0){
 					ctx.fillStyle = blocks[i].color;
 	    			ctx.fillRect(blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
@@ -100,7 +101,7 @@ $(document).ready(function(){
 		if(ev.keyCode == 32){
 			/*clearInterval(checkFail);
 			clearInterval(moveRight);*/
-			blocks[blocks.length-1].checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
+			checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
 		}
 		/*if(ev.keyCode == 13){
 			checkFail = setInterval(rektangle, 16);
@@ -108,7 +109,7 @@ $(document).ready(function(){
 		}*/
 	});
 	$(window).click(function(ev){
-		blocks[blocks.length-1].checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
+		checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
 	});
 	setInterval(draw, 15);
 	var checkFail = setInterval(rektangle, 25);
