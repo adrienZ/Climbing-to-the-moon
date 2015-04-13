@@ -17,9 +17,10 @@ $(document).ready(function(){
 		if(size == 1 && posX < (canvas.width()/2+sizeX) && (posX+sizeX) > (canvas.width()/2-sizeX)) var isGood = true;
 		else if((posX < (canvas.width()/2+100) && (posX+sizeX) > (canvas.width()/2-100)) 
 			&& (( posX+sizeX/2)+10 > blocks[size-2].posx && ( posX+sizeX/2)-10 < blocks[size-2].posx+blocks[size-2].sizex))
-		 		var isGood = true;
-		else var isGood = false;
-		if(isGood){
+		 		var isGood = true; // il manque {} ?
+		else var isGood = false;         //same
+		if(isGood)
+		{
 			var center = canvas.width()/2-(posX+(sizeX/2));
 			score += Math.round(100-(Math.abs(center)/75)*100);
 			//sendScore();
