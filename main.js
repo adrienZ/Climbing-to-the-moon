@@ -2,7 +2,8 @@ $(document).ready(function(){
 	var canvas = $('#graphic'), 
 	ctx = canvas[0].getContext('2d'),
 	step = 10,
-	speed = 20;
+	speed = 20,
+	score = 0;
 	function gameBlock(color, sizex, sizey, posx, posy){
 		this.color = color;
 		this.sizex = sizex;
@@ -13,19 +14,19 @@ $(document).ready(function(){
 		this.moveUp = function(oldPos, step) {this.posy = oldPos+step;};
 		this.checkFinal = function(posX, sizeX, size){
 			if(size == 1 && posX < (canvas.width()/2+sizeX) && (posX+sizeX) > (canvas.width()/2-sizeX)) var isGood = true;
-			else if((posX < (canvas.width()/2+100) && (posX+100) > (canvas.width()/2-100)) 
+			else if((posX < (canvas.width()/2+100) && (posX+sizeX) > (canvas.width()/2-100)) 
 				&& (( posX+sizeX/2)+10 > blocks[size-2].posx && ( posX+sizeX/2)-10 < blocks[size-2].posx+blocks[size-2].sizex))
 			 		var isGood = true;
 			else var isGood = false;
 			if(isGood){
 				var center = canvas.width()/2-(posX+(sizeX/2));
-				console.log(Math.round(100-(Math.abs(center)/75)*100));
+				score += Math.round(100-(Math.abs(center)/75)*100);
 				//sendScore();
 				nextBlock();
 			}
 			else{
-				clearInterval(checkFail);
 				clearInterval(moveRight);
+				clearInterval(checkFail);
 			}
 		};
 	} 
@@ -36,6 +37,8 @@ $(document).ready(function(){
 		blocks[id] = new gameBlock('#'+Math.floor(Math.random()*16777215).toString(16),width,height,0,posY);
 	}
 	function nextBlock(){
+		$('#blockscore').html(blocks.length);
+		$('#nbrblock').html(score);
 		var tempoH = Math.floor((Math.random()*50)+25);
 		var tempoW = Math.floor((Math.random()*50)+25);
 		if(blocks.length>=5){
@@ -60,10 +63,11 @@ $(document).ready(function(){
 		moveRight = setInterval(function() {blocks[blocks.length-1].dirRight(blocks[blocks.length-1].posx, step);}, speed);*/
 	}
 	function rektangle(){
-		if(blocks[blocks.length-1].posx > (canvas.width()/2+blocks[blocks.length-1].sizex)){
+		if(blocks[blocks.length-1].posx > (canvas.width()/2+blocks[0].sizex)){
 			clearInterval(checkFail);
 			clearInterval(moveRight);
 		}
+
 	}
 	function draw(){
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -85,14 +89,14 @@ $(document).ready(function(){
 	    		}
 			}
 		}
-		ctx.moveTo(canvas.width()/2+blocks[0].sizex,0);
+		/*ctx.moveTo(canvas.width()/2+blocks[0].sizex,0);
 		ctx.lineTo(canvas.width()/2+blocks[0].sizex,canvas.height());
 		ctx.stroke();
 		ctx.moveTo(canvas.width()/2-blocks[0].sizex,0);
 		ctx.lineTo(canvas.width()/2-blocks[0].sizex,canvas.height());
-		ctx.stroke();
+		ctx.stroke();*/
 	}
-	$(window).keydown(function(ev){
+	$(window).keypress(function(ev){
 		if(ev.keyCode == 32){
 			/*clearInterval(checkFail);
 			clearInterval(moveRight);*/
