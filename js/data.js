@@ -12,12 +12,13 @@ var peluche = new Image();
 var canvas = $('#graphic'), 
 	ctx = canvas[0].getContext('2d'),
 	step = 10,
-	speed = 20,
+	speed = 15,
 	score = 0,
 	dead = 0,
 	first = true,
 	world = 1,
-	scrollBG = 0;
+	scrollBG = 0,
+	move = 0;
 function gameBlock(img, sizex, sizey, posx, posy){
 	this.img = img;
 	this.sizex = sizex;

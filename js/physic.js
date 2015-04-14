@@ -1,14 +1,16 @@
 function physic(){
+	var canvasM = canvas.width()/2;
 	function checkFinal(posX, sizeX, size){
 		//console.log("Checking");
-		if(size == 1 && posX < (canvas.width()/2+sizeX) && (posX+sizeX) > (canvas.width()/2-sizeX)) var isGood = true;
-		else if((posX < (canvas.width()/2+100) && (posX+sizeX) > (canvas.width()/2-100)) 
-			&& (( posX+sizeX/2)+10 > blocks[size-2].posx && ( posX+sizeX/2)-10 < blocks[size-2].posx+blocks[size-2].sizex))
+		var objM = posX+sizeX/2;
+		if(size == 1 && posX < (canvasM+sizeX) && (posX+sizeX) > (canvasM-sizeX)) var isGood = true;
+		else if((posX < (canvasM+100) && (posX+sizeX) > (canvasM-100)) 
+			&& ((objM)+10 > blocks[size-2].posx && (objM)-10 < blocks[size-2].posx+blocks[size-2].sizex))
 		 		var isGood = true;
 		else var isGood = false;
 		if(isGood)
 		{
-			var center = canvas.width()/2-(posX+(sizeX/2));
+			var center = canvasM-(posX+(objM));
 			score += Math.abs(Math.round(100-(Math.abs(center)/75)*100));
 			//sendScore();
 			nextBlock();
@@ -20,36 +22,38 @@ function physic(){
 			$(window).off("keypress");
 		}
 	}
-	var getHeight = Math.round(getItem(1).height/getItem(1).width * 300);
-	blocks[0] = new gameBlock(getItem(1), 300, getHeight, canvas.width()/2-150, canvas.height()-getHeight);
+	var item1 = getItem(1);
+	var getH = Math.round(item1.height/item1.width * 300);
+	blocks[0] = new gameBlock(item1, 300, getH, canvas.width()/2-150, canvas.height()-getH);
 	nextBlock();
-	function newBlock(id, width, height, posY){
+	function newBlock(id, height, posY){
 		var img = getItem(Math.floor((Math.random()*2)+1));
-		width = Math.round(img.width/img.height * height);
-		console.log("Image: "+ img.src + " " + img.width +'*'+ img.height + " " + width +'*'+ height);
-		if(blocks.length >= 5) 	scrollAn(parseInt(height), scrollBG);
+		width = img.width/img.height * height;
+		//console.log("Image: "+ img.src + " " + img.width +'*'+ img.height + " " + width +'*'+ height);
+		move = true;
+		if(blocks.length >= 4) 	scrollAn(parseInt(height), scrollBG);
 		blocks[id] = new gameBlock(img,width,height,0,posY);
+		cacheBl = renderCache(canvas.width(), canvas.height(), 0);
 	}
 	function nextBlock(){
 		$('#blockscore').html(blocks.length);
 		$('#nbrblock').html(score);
 		var tempoH = Math.floor((Math.random()*50)+26);
-		var tempoW = 0;
-		if(blocks.length>=5){
+		if(blocks.length>=4){
 			for(var i = 0; i < blocks.length; i++){
 				blocks[i].moveUp(blocks[i].posy, tempoH);
 			}
-			newBlock(blocks.length, tempoW, tempoH, blocks[blocks.length-1].posy-tempoH);
+			newBlock(blocks.length, tempoH, blocks[blocks.length-1].posy-tempoH);
 		}
 		else {
 			/*if(blocks.length == 1) newBlock(blocks.length, tempoW, tempoH, canvas.height()-50-tempoH);
 			else {*/
-				newBlock(blocks.length, tempoW, tempoH, blocks[blocks.length-1].posy-tempoH);
+				newBlock(blocks.length, tempoH, blocks[blocks.length-1].posy-tempoH);
 			//}
 		}
 	}
 	function rektangle(){
-		if(blocks[blocks.length-1].posx > (canvas.width()/2+150)){
+		if(blocks[blocks.length-1].posx > (canvasM+150)){
 			clearInterval(checkFail);
 			clearInterval(moveRight);
 			dropAn();
@@ -58,7 +62,7 @@ function physic(){
 		}
 
 	}
-	function drawLast(){
+	/*function drawLast(){
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 		ctx.setTransform(1,0,0, 1,0,0);
 		ctx.drawImage(cached,0,0);
@@ -66,7 +70,7 @@ function physic(){
 		ctx.setTransform(1,ani05, ani05n, 1, ani30, ani10);
 		ctx.fillStyle = blocks[blocks.length-1].color;
 	    ctx.fillRect(blocks[blocks.length-1].posx, blocks[blocks.length-1].posy, blocks[blocks.length-1].sizex, blocks[blocks.length-1].sizey);
-	}
+	}*/
 	$(window).on("keypress", function(event){
 		if(event.charCode == 32){
 			checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
@@ -86,7 +90,7 @@ function physic(){
 	//ctx.drawImage(cached,0,0);
 	//setInterval(drawLast,16);
 	//ctx.drawImage(cached, 0, 0);
-	var checkFail = setInterval(rektangle, 50);
+	var checkFail = setInterval(rektangle, 30);
 	var moveRight = setInterval(function() {blocks[blocks.length-1].dirRight(blocks[blocks.length-1].posx, step);}, speed);
 	/*function death(){
 		return 0;
