@@ -1,8 +1,13 @@
 //AJOUTER LES ITEM SUIVANT CETTE SYNTAXE:
 var lit = new Image();
 	lit.src = 'assets/world1/lit.svg';
+	lit.width = 1150;
+	lit.height = 577;
+
 var peluche = new Image();
 	peluche.src = 'assets/world1/peluche.svg';
+	peluche.width = 337;
+	peluche.height = 318;
 //FIN ITEM
 var canvas = $('#graphic'), 
 	ctx = canvas[0].getContext('2d'),

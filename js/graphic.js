@@ -1,19 +1,24 @@
 function scrollAn(h,sH){
 	var ok = true;
-	if(sH+h > -bg.posy){
+	/*if(sH+h > -bg.posy){
 		sH = 0;
-	}
+	}*/
 	if(scrollBG == (sH+h)) ok = false;
 	else{
 		scrollBG += 1;
 	}
-	if(ok) setTimeout(function(){scrollAn(h,sH);}, 3);
+	if(ok)	setTimeout(function(){scrollAn(h,sH);}, 3);
 	//Animation de scroll
 }
 function drawBg(){
 	try{
-		if(scrollBG+bg.posy >= 0) scrollBG = 0;
-		ctx.drawImage(bg.img, bg.posx, bg.posy+scrollBG, bg.sizex, bg.sizey);
+		//if(scrollBG+bg.posy >= 0) scrollBG = 0;
+		var pat=ctx.createPattern(bg.img,"repeat");
+		ctx.rect(0,0,canvas.width(), canvas.height());
+		ctx.setTransform(1,0,0,1,0,scrollBG);
+		ctx.fillStyle=pat;
+		ctx.fill();
+		//ctx.drawImage(bg.img, bg.posx, bg.posy+scrollBG, bg.sizex, bg.sizey);
 	}
 	catch(e){
 		console.log("Image is loading");
@@ -22,16 +27,17 @@ function drawBg(){
 }
 function draw(){
 	//Rendu non stop de tout les cubes...
-	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	ctx.setTransform(1,0,0,1,0,0);
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	drawBg();
+	ctx.setTransform(1,0,0,1,0,0);
 	ctx.beginPath();
-	ctx.moveTo(canvas.width()/2+blocks[0].sizex,0);
-	ctx.lineTo(canvas.width()/2+blocks[0].sizex,canvas.height());
+	ctx.moveTo(canvas.width()/2+150,0);
+	ctx.lineTo(canvas.width()/2+150,canvas.height());
 	ctx.stroke();
 	ctx.beginPath();
-	ctx.moveTo(canvas.width()/2-blocks[0].sizex,0);
-	ctx.lineTo(canvas.width()/2-blocks[0].sizex,canvas.height());
+	ctx.moveTo(canvas.width()/2-150,0);
+	ctx.lineTo(canvas.width()/2-150,canvas.height());
 	ctx.stroke();
 	if(blocks.length<=10){
     	for(var i = 0; i < blocks.length-1; i++){
@@ -88,8 +94,8 @@ function dropAn(){
 			}
 			else conti = true;
 		}
-		if(conti && ani10<500) ani10 += sutepu;
-		else if(ani10>500) {
+		if(conti && ani10<800) ani10 += sutepu;
+		else if(ani10>800) {
 			go = false;
 		}
 		if(go) setTimeout(incre, 20);

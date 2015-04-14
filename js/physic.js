@@ -1,6 +1,6 @@
 function physic(){
 	function checkFinal(posX, sizeX, size){
-		console.log("Checking");
+		//console.log("Checking");
 		if(size == 1 && posX < (canvas.width()/2+sizeX) && (posX+sizeX) > (canvas.width()/2-sizeX)) var isGood = true;
 		else if((posX < (canvas.width()/2+100) && (posX+sizeX) > (canvas.width()/2-100)) 
 			&& (( posX+sizeX/2)+10 > blocks[size-2].posx && ( posX+sizeX/2)-10 < blocks[size-2].posx+blocks[size-2].sizex))
@@ -20,24 +20,26 @@ function physic(){
 			$(window).off("keypress");
 		}
 	}
-	blocks[0] = new gameBlock(lit, 100, 50, canvas.width()/2-50, canvas.height()-50);
+	var getHeight = Math.round(getItem(1).height/getItem(1).width * 300);
+	blocks[0] = new gameBlock(getItem(1), 300, getHeight, canvas.width()/2-150, canvas.height()-getHeight);
 	nextBlock();
 	function newBlock(id, width, height, posY){
 		var img = getItem(Math.floor((Math.random()*2)+1));
-		console.log(lit);
+		width = Math.round(img.width/img.height * height);
+		console.log("Image: "+ img.src + " " + img.width +'*'+ img.height + " " + width +'*'+ height);
+		if(blocks.length >= 5) 	scrollAn(parseInt(height), scrollBG);
 		blocks[id] = new gameBlock(img,width,height,0,posY);
 	}
 	function nextBlock(){
 		$('#blockscore').html(blocks.length);
 		$('#nbrblock').html(score);
-		var tempoH = Math.floor((Math.random()*50)+25);
-		var tempoW = Math.floor((Math.random()*50)+25);
+		var tempoH = Math.floor((Math.random()*50)+26);
+		var tempoW = 0;
 		if(blocks.length>=5){
 			for(var i = 0; i < blocks.length; i++){
 				blocks[i].moveUp(blocks[i].posy, tempoH);
 			}
 			newBlock(blocks.length, tempoW, tempoH, blocks[blocks.length-1].posy-tempoH);
-			scrollAn(parseInt(tempoH), scrollBG);
 		}
 		else {
 			/*if(blocks.length == 1) newBlock(blocks.length, tempoW, tempoH, canvas.height()-50-tempoH);
@@ -47,7 +49,7 @@ function physic(){
 		}
 	}
 	function rektangle(){
-		if(blocks[blocks.length-1].posx > (canvas.width()/2+blocks[0].sizex)){
+		if(blocks[blocks.length-1].posx > (canvas.width()/2+150)){
 			clearInterval(checkFail);
 			clearInterval(moveRight);
 			dropAn();
