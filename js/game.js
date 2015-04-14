@@ -1,6 +1,15 @@
 var blocks = new Array();
-physic();
+var isStart = 0;
 //Just launch vital fonction
+function start(){
+	isStart = 1;
+	$("#go").off('click');
+	$("#go").html("Try again");
+	$('#go').prop("disabled", true);
+	$("#go").on('click',function(){ restart();});
+	setInterval(draw, 15);
+	physic();
+}
 function restart(){
 	first = false;
 	score= 0;
@@ -8,7 +17,7 @@ function restart(){
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     blocks = [];
     scrollBG = 0;
-	$('#failed').prop("disabled", true);
+	$('#go').prop("disabled", true);
 	physic();
 }
-$("#failed").on('click',function(){ restart();})
+$("#go").on('click',function(){ start();});

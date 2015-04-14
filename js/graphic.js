@@ -10,20 +10,20 @@ function scrollAn(h,sH){
 	if(ok) setTimeout(function(){scrollAn(h,sH);}, 3);
 	//Animation de scroll
 }
+function drawBg(){
+	try{
+		if(scrollBG+bg.posy >= 0) scrollBG = 0;
+		ctx.drawImage(bg.img, bg.posx, bg.posy+scrollBG, bg.sizex, bg.sizey);
+	}
+	catch(e){
+		console.log("Image is loading");
+		setTimeout(drawBg, 30);
+	}
+}
 function draw(){
 	//Rendu non stop de tout les cubes...
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	ctx.setTransform(1,0,0,1,0,0);
-	function drawBg(){
-		try{
-			if(scrollBG+bg.posy >= 0) scrollBG = 0;
-			ctx.drawImage(bg.img, bg.posx, bg.posy+scrollBG, bg.sizex, bg.sizey);
-		}
-		catch(e){
-			console.log("Image is loading");
-		}
-
-	}
 	drawBg();
 	ctx.beginPath();
 	ctx.moveTo(canvas.width()/2+blocks[0].sizex,0);
@@ -93,9 +93,9 @@ function dropAn(){
 			go = false;
 		}
 		if(go) setTimeout(incre, 20);
-		else $('#failed').prop("disabled", false);
+		else $('#go').prop("disabled", false);
 	}
 	setTimeout(incre, 200);
 	//Animation de mort
 }
-setInterval(draw, 15);
+drawBg();

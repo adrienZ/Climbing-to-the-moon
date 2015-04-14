@@ -3,8 +3,6 @@ var lit = new Image();
 	lit.src = 'assets/world1/lit.svg';
 var peluche = new Image();
 	peluche.src = 'assets/world1/peluche.svg';
-	peluche.height=60;
-	console.log(peluche.width);
 //FIN ITEM
 var canvas = $('#graphic'), 
 	ctx = canvas[0].getContext('2d'),
