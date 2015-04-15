@@ -4,14 +4,15 @@ var isStart = 0;
 function start(){
 	canvasM = canvas.width()/2;
 	isStart = 1;
+	$('#pause').prop("disabled", false);
 	$("#go").off('click');
 	$("#go").html("Try again");
 	$('#go').prop("disabled", true);
 	$("#go").on('click',function(){ restart(0);});
-	drawBg(1,1,0);
+	drawBg(1,1);
 	setInterval(draw, 15);
-	document.getElementById('music').volume= 0.5;
-	if(music) document.getElementById('music').play();
+	if(music)document.getElementById('music').volume= 0.5;
+	document.getElementById('music').play();
 	physic();
 }
 function restart(nextworld){
@@ -21,8 +22,10 @@ function restart(nextworld){
     blocks = [];
     scrollBG = 0;
     ground = 1;
-    drawBg(1,1,0);
+    drawBg(1,1);
+    $('#pause').prop("disabled", false);
 	$('#go').prop("disabled", true);
+	$('#go').html("Try Again");
 	physic();
 }
 function checkScore(){//La haute à atteindre pour le niveau suivant
@@ -74,7 +77,36 @@ function musicControl(){
 		setTimeout(function(){$('#musicControl').prop("disabled", false);}, 10);
 	}
 }
+function pause(){
+	if(paused){
+		$('#pause').prop("disabled", true);
+		keyEvent();
+		paused = 0;
+		iCheckFail(1);
+		iMoveRight(1);
+		$('#pause').html("Pause");
+		setTimeout(function(){$('#pause').prop("disabled", false);}, 10);
+	}
+	else{
+		$('#pause').prop("disabled", true);
+		paused = 1;
+		$(window).off("keypress");
+		iCheckFail(0);
+		iMoveRight(0);
+		$('#pause').html("Play");
+		setTimeout(function(){$('#pause').prop("disabled", false);}, 10);
+	}
+}
 
 $("#go").on('click',function(){ start();});
+$("#pause").on('click',function(){ pause();});
 $("#musicControl").on('click',function(){ musicControl();});
 $("#next").on('click',function(){ nextWorld();});
+$(window).resize(function() {
+  
+});
+document.getElementById('music').addEventListener('canplaythrough', function() { 
+	$('#go').html("Start");
+	$('#go').prop("disabled", false);
+	drawBg(1,1);
+}, false);

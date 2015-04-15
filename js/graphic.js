@@ -14,9 +14,9 @@ function scrollAn(h,sH){
 	//Animation de scroll
 }
 var pat;
-function drawBg(isFirst, newBg, start){
+function drawBg(isFirst, newBg){
 	try{
-		if(newBg) pat=ctx.createPattern(bg.img,"repeat");
+		if(newBg) pat=ctx.createPattern(bg,"repeat");
 		ctx.beginPath();
 		ctx.rect(0,0,canvas.width(), canvas.height());
 		ctx.setTransform(1,0,0,1,0,scrollBG);
@@ -33,13 +33,10 @@ function drawBg(isFirst, newBg, start){
 					break;
 			}
 		}
-		if(start){
-			$('#go').prop("disabled", false);
-		}
 	}
 	catch(e){
 		console.log("Image is loading");
-		setTimeout(function(){drawBg(isFirst,newBg, start);}, 30);
+		setTimeout(function(){drawBg(isFirst,newBg);}, 30);
 	}
 }
 function renderCache(width, height, doBg){
@@ -52,8 +49,8 @@ function renderCache(width, height, doBg){
 }
 var cacheBg, cacheBl;
 function kek(ctx2,doBg){
-	if(doBg){
-		var pat2=ctx2.createPattern(bg.img,"repeat");
+	if(doBg == 1){
+		var pat2=ctx2.createPattern(bg,"repeat");
 		ctx2.rect(0,0,canvas.width(), canvas.height());
 		ctx2.setTransform(1,0,0,1,0,scrollBG);
 		ctx2.fillStyle=pat;
@@ -68,6 +65,9 @@ function kek(ctx2,doBg){
 					break;
 			}
 		}
+	}
+	else if(doBg == 2){
+		ctx2.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	}
 	else{
 		ctx2.setTransform(1,0,0,1,0,0);
@@ -95,40 +95,16 @@ function kek(ctx2,doBg){
 function draw(){
 	ctx.setTransform(1,0,0,1,0,0);
 	if(blocks.length<=4) {
-		//ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 		ctx.drawImage(cacheBg,0,0);
-		/*ctx.beginPath();
-		ctx.moveTo(canvas.width()/2+150,0);
-		ctx.lineTo(canvas.width()/2+150,canvas.height());
-		ctx.stroke();
-		ctx.beginPath();
-		ctx.moveTo(canvas.width()/2-150,0);
-		ctx.lineTo(canvas.width()/2-150,canvas.height());
-		ctx.stroke();
-		/*for(var i = 0; i < blocks.length-1; i++){
-				ctx.beginPath();
-		 		ctx.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
-		}*/
 	}
 	else if(move){
-		drawBg(0,0,0);
+		drawBg(0,0);
 	}
 	else{
 		ctx.drawImage(cacheBg,0,0);
 	}
-	//else{
-	//	drawBg();
-	//}
 	ctx.setTransform(1,0,0,1,0,0);
 	ctx.drawImage(cacheBl,0,0);
-	/*ctx.beginPath();
-	ctx.moveTo(canvas.width()/2+150,0);
-	ctx.lineTo(canvas.width()/2+150,canvas.height());
-	ctx.stroke();
-	ctx.beginPath();
-	ctx.moveTo(canvas.width()/2-150,0);
-	ctx.lineTo(canvas.width()/2-150,canvas.height());
-	ctx.stroke();*/
 	ctx.setTransform(1,ani05, ani05n, 1, ani30, ani10);
 	ctx.drawImage(blocks[blocks.length-1].img, blocks[blocks.length-1].posx, blocks[blocks.length-1].posy, blocks[blocks.length-1].sizex, blocks[blocks.length-1].sizey);
 }
@@ -136,6 +112,7 @@ var ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0;
 function dropAn(tryagain,sbt){
 	$('#go').prop("disabled", true);
 	$('#next').prop("disabled", true);
+	$('#pause').prop("disabled", true);
 	var sutepu = 1;
 	var go = true;
 	function incre(tryagain){
@@ -170,12 +147,16 @@ function dropAn(tryagain,sbt){
 				if(unlock)$('#next').prop("disabled", false);
 			}
 			else {
-				drawBg(1,1,0);
-				restart(1);
+				scrollBG = 0;
+				ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+				drawBg(1,1);
+				ground = 1;
+				cacheBl = renderCache(canvas.width(), canvas.height(), 2);
+				$('#go').html("Start");
+				$('#go').prop("disabled", false);
 			}
 		}
 	}
 	setTimeout(function(){incre(tryagain);}, 200);
 	//Animation de mort
 }
-drawBg(1,1,1);
