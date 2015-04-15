@@ -1,9 +1,13 @@
-if($(window).width()<1280) $('#graphic').attr('width', $(window).width()-5);
-if($(window).height()<720) $('#graphic').attr('height', $(window).height()-100);
-if($(window).width()<330) {
+if($(window).width()<330 || $(window).height()<500 ) {
 	$("#graphic").remove();
 	window.alert("Votre écran est trop petit pour jouer.");
 }
+else if($(window).width()<1280 && $(window).height()<720) {
+	$('#graphic').attr('width', $(window).width()-5);
+	$('#graphic').attr('height', (720/1280 * $(window).width()-5));
+}
+var viewportW = $('#graphic').attr('width');
+var viewportH = $('#graphic').attr('height');
 function physic(){
 	function checkFinal(posX, sizeX, size){
 		//console.log("Checking");
@@ -39,8 +43,8 @@ function physic(){
 		}
 	}
 	var item1 = getItem(1);
-	var getH = Math.round(item1.height/item1.width * 300);
-	blocks[0] = new gameBlock(item1, 300, getH, canvas.width()/2-150, canvas.height()-getH);
+	var getH = Math.round(item1.height/item1.width * viewportW/4);
+	blocks[0] = new gameBlock(item1, viewportW/4, getH, canvas.width()/2-((viewportW/4)/2), canvas.height()-getH);
 	nextBlock();
 	function newBlock(id, height, posY, width, img){
 		//var img = getItem(0);
@@ -60,12 +64,12 @@ function physic(){
 		$('#blockscore').html(score);
 		var img = getItem(0);
 		if(img.width>img.height){
-			var tempoW = 150-((blocks.length)+world/2);
+			var tempoW = Math.floor(viewportW/8)-((blocks.length)+world/2);
 			if(tempoW < 30) tempoW = 30;
 			var tempoH = img.height/img.width * tempoW;
 		}//Math.floor((Math.random()*50)+26);
 		else{
-			var tempoH = 75-((blocks.length)+5/2);
+			var tempoH = Math.floor(viewportH/6)-((blocks.length)+5/2);
 			if(tempoH < 30) tempoH = 30;
 			var tempoW = img.width/img.height * tempoH;
 		}

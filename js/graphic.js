@@ -72,12 +72,12 @@ function kek(ctx2,doBg){
 	else{
 		ctx2.setTransform(1,0,0,1,0,0);
 		ctx2.beginPath();
-		ctx2.moveTo(canvas.width()/2+150,0);
-		ctx2.lineTo(canvas.width()/2+150,canvas.height());
+		ctx2.moveTo(canvas.width()/2+((viewportW/4)/2),0);
+		ctx2.lineTo(canvas.width()/2+((viewportW/4)/2),canvas.height());
 		ctx2.stroke();
 		ctx2.beginPath();
-		ctx2.moveTo(canvas.width()/2-150,0);
-		ctx2.lineTo(canvas.width()/2-150,canvas.height());
+		ctx2.moveTo(canvas.width()/2-((viewportW/4)/2),0);
+		ctx2.lineTo(canvas.width()/2-((viewportW/4)/2),canvas.height());
 		ctx2.stroke();
 		if(blocks.length<=35){
 	    	for(var i = 0; i < blocks.length-1; i++){

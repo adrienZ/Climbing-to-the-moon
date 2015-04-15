@@ -60,14 +60,18 @@ function nextWorld(){
 }
 function musicControl(){
 	if(music){
+		$('#musicControl').prop("disabled", true);
 		music = 0;
 		$('#musicControl').html("Music On");
 		document.getElementById('music').volume= 0;
+		setTimeout(function(){$('#musicControl').prop("disabled", false);}, 10);
 	}
 	else{
+		$('#musicControl').prop("disabled", true);
 		music = 1;
 		$('#musicControl').html("Music Off");
 		document.getElementById('music').volume= 0.5;
+		setTimeout(function(){$('#musicControl').prop("disabled", false);}, 10);
 	}
 }
 
