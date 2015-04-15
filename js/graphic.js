@@ -7,9 +7,10 @@ function scrollAn(h,sH){
 	}
 	else{
 		scrollBG += 5;
+		cacheBg = renderCache(canvas.width(), canvas.height(), 1);
 	}
 	if(ok){
-		setTimeout(function(){scrollAn(h,sH);}, 15);
+		setTimeout(function(){scrollAn(h,sH);}, 10);
 	}
 	//Animation de scroll
 }
@@ -21,6 +22,7 @@ function drawBg(){
 		ctx.setTransform(1,0,0,1,0,scrollBG);
 		ctx.fillStyle=pat;
 		ctx.fill();
+		cacheBg = renderCache(canvas.width(), canvas.height(), 1);
 		//ctx.drawImage(bg.img, bg.posx, bg.posy+scrollBG, bg.sizex, bg.sizey);
 	}
 	catch(e){
@@ -49,13 +51,11 @@ function kek(ctx2,doBg){
 	ctx2.setTransform(1,0,0,1,0,0);
 	if(blocks.length<=9){
     	for(var i = 0; i < blocks.length-1; i++){
-			ctx2.beginPath();
 	 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 		}
     }
     else{ 
     	for(var i = blocks.length-9; i < blocks.length-1; i++){
-			ctx2.beginPath();
 	 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 		}
 	}
@@ -64,21 +64,21 @@ function kek(ctx2,doBg){
 }
 function draw(){
 	ctx.setTransform(1,0,0,1,0,0);
-	if(blocks.length<=4) {
+	//if(blocks.length<=4) {
 		//ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-		drawBg();
+		//drawBg();
 		/*for(var i = 0; i < blocks.length-1; i++){
 				ctx.beginPath();
 		 		ctx.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 		}*/
-	}
-	else if(!move){
-		ctx.drawImage(cacheBg,0,0);
-	}
-	else{
-		drawBg();
-	}
+	//}
+	//if(!move){
+	//}
+	//else{
+	//	drawBg();
+	//}
 	ctx.setTransform(1,0,0,1,0,0);
+	ctx.drawImage(cacheBg,0,0);
 	ctx.drawImage(cacheBl,0,0);
 	ctx.beginPath();
 	ctx.moveTo(canvas.width()/2+150,0);

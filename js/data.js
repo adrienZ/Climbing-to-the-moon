@@ -1,13 +1,15 @@
-//AJOUTER LES ITEM SUIVANT CETTE SYNTAXE:
-var lit = new Image();
-	lit.src = 'assets/world1/lit.svg';
-	lit.width = 1150;
-	lit.height = 577;
+function createImage(src, width, height){
+	var image = new Image();
+	image.src = src;
+	image.width = width;
+	image.height = height;
+	return image;
+}
+//AJOUTER LES ITEM SUIVANT CETTE SYNTAXE: var nom = createImage(src, width, height);
+var lit = createImage('assets/world1/lit.svg', 1150, 577);
+var peluche = createImage('assets/world1/peluche.svg', 337, 318);
 
-var peluche = new Image();
-	peluche.src = 'assets/world1/peluche.svg';
-	peluche.width = 337;
-	peluche.height = 318;
+
 //FIN ITEM
 var canvas = $('#graphic'), 
 	ctx = canvas[0].getContext('2d'),
@@ -25,8 +27,14 @@ function gameBlock(img, sizex, sizey, posx, posy){
 	this.sizey = sizey;
 	this.posx = posx;
 	this.posy = posy;
-	this.dirRight = function(oldPos, step) {this.posx = oldPos+step;};
-	this.moveUp = function(oldPos, step) {this.posy = oldPos+step;};
+	/*this.dirRight = function(oldPos, step) {this.posx = oldPos+step;};
+	this.moveUp = function(oldPos, step) {this.posy = oldPos+step;};*/
+}
+function dirRight(oldPos, step){
+	return oldPos+step;
+}
+function moveUp(oldPos, step){
+	return oldPos+step;
 }
 var bg = initbg();
 function initbg(){

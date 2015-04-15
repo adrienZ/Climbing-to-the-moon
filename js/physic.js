@@ -41,7 +41,7 @@ function physic(){
 		var tempoH = Math.floor((Math.random()*50)+26);
 		if(blocks.length>=4){
 			for(var i = 0; i < blocks.length; i++){
-				blocks[i].moveUp(blocks[i].posy, tempoH);
+				blocks[i].posy = moveUp(blocks[i].posy, tempoH);
 			}
 			newBlock(blocks.length, tempoH, blocks[blocks.length-1].posy-tempoH);
 		}
@@ -91,7 +91,7 @@ function physic(){
 	//setInterval(drawLast,16);
 	//ctx.drawImage(cached, 0, 0);
 	var checkFail = setInterval(rektangle, 30);
-	var moveRight = setInterval(function() {blocks[blocks.length-1].dirRight(blocks[blocks.length-1].posx, step);}, speed);
+	var moveRight = setInterval(function() {blocks[blocks.length-1].posx = dirRight(blocks[blocks.length-1].posx, step);}, speed);
 	/*function death(){
 		return 0;
 	}*/
