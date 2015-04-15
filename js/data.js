@@ -10,11 +10,17 @@ var basebg1 = new Image();
 	basebg1.src= "assets/bg/base1.svg";
 	basebg1.height = $('#graphic').height();
 	basebg1.width = $('#graphic').width();
+var basebg2 = new Image();
+	basebg2.src= "assets/bg/base2.svg";
+	basebg2.height = $('#graphic').height();
+	basebg2.width = $('#graphic').width();
 var lit = createImage('assets/world1/lit.svg', 1150, 577);
 var peluche = createImage('assets/world1/peluche.svg', 318, 318);
 var maison = createImage('assets/world2/maison.svg', 255, 145);
 var etage = createImage('assets/world2/etage.svg', 547, 219);
 var toit = createImage('assets/world2/toit.svg', 354, 68);
+var nuage = createImage('assets/world3/nuage.svg', 792, 450);
+var nuage2 = createImage('assets/world3/nuage2.svg', 778, 480);
 
 
 
@@ -23,7 +29,7 @@ var toit = createImage('assets/world2/toit.svg', 354, 68);
 var canvas = $('#graphic'),
 	canvasM,
 	ctx = canvas[0].getContext('2d'),
-	step = 10,
+	step = 0,
 	speed = 15,
 	score = 0,
 	dead = 0,
@@ -34,7 +40,8 @@ var canvas = $('#graphic'),
 	altItem = 0,
 	unlock = 0,
 	music = 1,
-	ground = 1;
+	ground = 1,
+	worldStep = 6;
 function gameBlock(img, sizex, sizey, posx, posy){
 	this.img = img;
 	this.sizex = sizex;
@@ -57,36 +64,41 @@ function initbg(){
 			var bgI = new Image();
 			bgI.src = 'assets/bg/bg1.svg';
 			bgI.onload = function(){
-			bg = null;
-			return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
+				bg = null;
+				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);
+			};
 			break;
 		case 2:
 			var bgI = new Image();
 			bgI.src = 'assets/bg/bg2.svg';
 			bgI.onload = function(){
 				bg = null;
-				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
+				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);
+			};
 			break;
 		case 3:
 			var bgI = new Image();
-			bgI.src = 'assets/bg/bg3.svg';
+			bgI.src = 'assets/bg/bg2.svg';
 			bgI.onload = function(){
 				bg = null;
-				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
+				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);
+			};
 			break;
 		case 4:
 			var bgI = new Image();
 			bgI.src = 'assets/bg/bg4.svg';
 			bgI.onload = function(){
 				bg = null;
-				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
+				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);
+			};
 			break;
 		case 5:
 			var bgI = new Image();
 			bgI.src = 'assets/bg/bg5.svg';
 			bgI.onload = function(){
 				bg = null;
-				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
+				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);
+			};
 			break;
 	}
 }
@@ -118,6 +130,7 @@ function getItem(def){
 						break;
 				};
 		case 3://item monde 3
+			if(def) return maison;
 			switch(Math.floor((Math.random()*2)+1)){
 				case 1:
 					return nuage;

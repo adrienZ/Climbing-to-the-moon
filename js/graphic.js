@@ -28,6 +28,9 @@ function drawBg(isFirst, newBg){
 				case 1:
 					ctx.drawImage(basebg1,0,scrollBG,basebg1.width,basebg1.height);
 					break;
+				case 2:
+					ctx.drawImage(basebg2,0,scrollBG,basebg2.width,basebg2.height);
+					break;
 			}
 		}
 	}
@@ -57,6 +60,9 @@ function kek(ctx2,doBg){
 				case 1:
 					ctx2.drawImage(basebg1,0,scrollBG,basebg1.width,basebg1.height);
 					break;
+				case 2:
+					ctx2.drawImage(basebg2,0,scrollBG,basebg2.width,basebg2.height);
+					break;
 			}
 		}
 	}
@@ -70,13 +76,13 @@ function kek(ctx2,doBg){
 		ctx2.moveTo(canvas.width()/2-150,0);
 		ctx2.lineTo(canvas.width()/2-150,canvas.height());
 		ctx2.stroke();
-		if(blocks.length<=15){
+		if(blocks.length<=35){
 	    	for(var i = 0; i < blocks.length-1; i++){
 		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 			}
 	    }
 	    else{ 
-	    	for(var i = blocks.length-15; i < blocks.length-1; i++){
+	    	for(var i = blocks.length-35; i < blocks.length-1; i++){
 		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 			}
 		}

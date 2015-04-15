@@ -1,5 +1,9 @@
-$('#graphic').attr('width', $(window).width()-5);
-$('#graphic').attr('height', $(window).height()-100);
+if($(window).width()<1280) $('#graphic').attr('width', $(window).width()-5);
+if($(window).height()<720) $('#graphic').attr('height', $(window).height()-100);
+if($(window).width()<330) {
+	$("#graphic").remove();
+	window.alert("Votre écran est trop petit pour jouer.");
+}
 function physic(){
 	function checkFinal(posX, sizeX, size){
 		//console.log("Checking");
@@ -30,6 +34,7 @@ function physic(){
 			dropAn(1,weirdConstr);
 			iCheckFail(0);
 			iMoveRight(0);
+			document.getElementById('lose').play();
 			$(window).off("keypress");
 		}
 	}
@@ -42,13 +47,17 @@ function physic(){
 		//width = img.width/img.height * height;
 		//console.log("Image: "+ img.src + " " + img.width +'*'+ img.height + " " + width +'*'+ height);
 		move = true;
-		if(blocks.length >= 4) 	scrollAn(parseInt(height), scrollBG);
+		if(blocks.length >= 4) {
+			scrollAn(parseInt(height), scrollBG);
+		}
+		if(scrollBG + parseInt(height) == canvas.height()) ground =0;
+		step = worldStep + Math.round(blocks.length/10);
 		blocks[id] = new gameBlock(img,width,height,0,posY);
 		cacheBl = renderCache(canvas.width(), canvas.height(), 0);
 	}
 	function nextBlock(){
-		$('#blockscore').html(blocks.length);
-		$('#nbrblock').html(score);
+		$('#nbrblock').html(blocks.length);
+		$('#blockscore').html(score);
 		var img = getItem(0);
 		if(img.width>img.height){
 			var tempoW = 150-((blocks.length)+world/2);
@@ -99,6 +108,7 @@ function rektangle(){
 		iCheckFail(0);
 		iMoveRight(0);
 		dropAn(1);
+		document.getElementById('lose').play();
 		$(window).off("keypress");
 		//death();
 	}

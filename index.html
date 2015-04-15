@@ -6,7 +6,7 @@
 	</head>
 	<body style="margin:0;padding:0;">
 		
-		<canvas id="graphic" style="border:thin solid grey;"></canvas>
+		<canvas id="graphic" height="720" width="1280" width style="border:thin solid grey;"></canvas>
 		<div id="blockscore"></div>
 		<div id="nbrblock"></div>
 		<button id='go'>Start</button>
@@ -16,8 +16,9 @@
 	
 	
 		<!-- scripts -->
-		<audio id="music" volume="0.5" loop src="assets/music/music.mp3"></audio>
+		<audio id="music" loop src="assets/music/music.mp3"></audio>
 		<audio id="sfx" src="assets/music/drop.wav"></audio>
+		<audio id="lose" src="assets/music/lose.wav"></audio>
 		<script src="js/jquery.js" type="text/javascript"></script>
 		<!--<script src="main.js" type="text/javascript"></script>-->
 		<script src="js/physic.js" type="text/javascript"></script>

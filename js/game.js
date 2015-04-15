@@ -10,6 +10,7 @@ function start(){
 	$("#go").on('click',function(){ restart(0);});
 	drawBg(1,1);
 	setInterval(draw, 15);
+	document.getElementById('music').volume= 0.5;
 	if(music) document.getElementById('music').play();
 	physic();
 }
@@ -20,6 +21,8 @@ function restart(nextworld){
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     blocks = [];
     scrollBG = 0;
+    ground = 1;
+    drawBg(1,1);
 	$('#go').prop("disabled", true);
 	physic();
 }
@@ -29,13 +32,13 @@ function checkScore(){
 			if(blocks.length>5) return 1;
 			break;
 		case 2:
-			if(blocks.length>30) return 1;
+			if(blocks.length>10) return 1;
 			break;
 		case 3:
-			if(blocks.length>40) return 1;
+			if(blocks.length>500) return 1;
 			break;
 		case 4 :
-			if(blocks.length>50) return 1;
+			if(blocks.length>30) return 1;
 			break;
 		default:
 			return 0;
@@ -47,9 +50,10 @@ function nextWorld(){
 	if(world != 5){
 		$('#next').prop("disabled", true);
 		dropAn(0);
-		step += 5;
+		worldStep += 3;
 		iCheckFail(0);
 		iMoveRight(0);
+		unlock = 0;
 		$(window).off("keypress");
 		world++;
 		bg = initbg();
