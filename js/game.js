@@ -8,37 +8,36 @@ function start(){
 	$("#go").html("Try again");
 	$('#go').prop("disabled", true);
 	$("#go").on('click',function(){ restart(0);});
-	drawBg(1,1);
+	drawBg(1,1,0);
 	setInterval(draw, 15);
 	document.getElementById('music').volume= 0.5;
 	if(music) document.getElementById('music').play();
 	physic();
 }
 function restart(nextworld){
-	first = false;
 	if(!nextworld)score= 0;
 	ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0;
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     blocks = [];
     scrollBG = 0;
     ground = 1;
-    drawBg(1,1);
+    drawBg(1,1,0);
 	$('#go').prop("disabled", true);
 	physic();
 }
-function checkScore(){
+function checkScore(){//La haute à atteindre pour le niveau suivant
 	switch(world){
 		case 1:
-			if(blocks.length>5) return 1;
+			if(blocks.length>0) return 1;
 			break;
 		case 2:
-			if(blocks.length>10) return 1;
+			if(blocks.length>0) return 1;
 			break;
 		case 3:
-			if(blocks.length>500) return 1;
+			if(blocks.length>0) return 1;
 			break;
 		case 4 :
-			if(blocks.length>30) return 1;
+			if(blocks.length>999999) return 1;
 			break;
 		default:
 			return 0;

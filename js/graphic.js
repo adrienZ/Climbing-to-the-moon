@@ -14,7 +14,7 @@ function scrollAn(h,sH){
 	//Animation de scroll
 }
 var pat;
-function drawBg(isFirst, newBg){
+function drawBg(isFirst, newBg, start){
 	try{
 		if(newBg) pat=ctx.createPattern(bg.img,"repeat");
 		ctx.beginPath();
@@ -33,10 +33,13 @@ function drawBg(isFirst, newBg){
 					break;
 			}
 		}
+		if(start){
+			$('#go').prop("disabled", false);
+		}
 	}
 	catch(e){
 		console.log("Image is loading");
-		setTimeout(function(){drawBg(isFirst,newBg);}, 30);
+		setTimeout(function(){drawBg(isFirst,newBg, start);}, 30);
 	}
 }
 function renderCache(width, height, doBg){
@@ -108,7 +111,7 @@ function draw(){
 		}*/
 	}
 	else if(move){
-		drawBg(0,0);
+		drawBg(0,0,0);
 	}
 	else{
 		ctx.drawImage(cacheBg,0,0);
@@ -167,7 +170,7 @@ function dropAn(tryagain,sbt){
 				if(unlock)$('#next').prop("disabled", false);
 			}
 			else {
-				drawBg(1,1);
+				drawBg(1,1,0);
 				restart(1);
 			}
 		}
@@ -175,4 +178,4 @@ function dropAn(tryagain,sbt){
 	setTimeout(function(){incre(tryagain);}, 200);
 	//Animation de mort
 }
-drawBg(1,1);
+drawBg(1,1,1);

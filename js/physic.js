@@ -76,41 +76,24 @@ function physic(){
 			newBlock(blocks.length, tempoH, blocks[blocks.length-1].posy-tempoH, tempoW, img);
 		}
 		else {
-			/*if(blocks.length == 1) newBlock(blocks.length, tempoW, tempoH, canvas.height()-50-tempoH);
-			else {*/
-				newBlock(blocks.length, tempoH, blocks[blocks.length-1].posy-tempoH, tempoW, img);
-			//}
+			newBlock(blocks.length, tempoH, blocks[blocks.length-1].posy-tempoH, tempoW, img);
 		}
 	}
-	/*function drawLast(){
-		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-		ctx.setTransform(1,0,0, 1,0,0);
-		ctx.drawImage(cached,0,0);
-		ctx.beginPath();
-		ctx.setTransform(1,ani05, ani05n, 1, ani30, ani10);
-		ctx.fillStyle = blocks[blocks.length-1].color;
-	    ctx.fillRect(blocks[blocks.length-1].posx, blocks[blocks.length-1].posy, blocks[blocks.length-1].sizex, blocks[blocks.length-1].sizey);
-	}*/
 	$(window).on("keypress", function(event){
 		if(event.charCode == 32){
 			checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
 		}
 	});
-	/*$('#failed').on("tap", function(ev){
-		checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
-	});*/
 	iCheckFail(1);
 	iMoveRight(1);
 }
-function rektangle(){
-	console.log("lo");
+function rektangle(){ //Vérifie que l'item ne sorte pas des limites du jeu
 	if(blocks[blocks.length-1].posx > (canvasM+150)){
 		iCheckFail(0);
 		iMoveRight(0);
 		dropAn(1);
 		document.getElementById('lose').play();
 		$(window).off("keypress");
-		//death();
 	}
 
 }
@@ -120,6 +103,6 @@ function iCheckFail(bool){
 	else clearInterval(checkFail);
 }
 function iMoveRight(bool){
-	if(bool) moveRight = setInterval(function() {blocks[blocks.length-1].posx = dirRight(blocks[blocks.length-1].posx, step);}, speed);
+	if(bool) moveRight = setInterval(function() {blocks[blocks.length-1].posx = dirRight(blocks[blocks.length-1].posx, step);}, 15);
 	else clearInterval(moveRight);
 }
