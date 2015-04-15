@@ -41,11 +41,12 @@ function checkScore(){
 			break;
 	}
 }
+
 function nextWorld(){
 	if(world != 5){
 		$('#next').prop("disabled", true);
 		dropAn(0);
-		speed += 2;
+		step += 5;
 		iCheckFail(0);
 		iMoveRight(0);
 		$(window).off("keypress");

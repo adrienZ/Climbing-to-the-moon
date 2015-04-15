@@ -7,22 +7,26 @@ function createImage(src, width, height){
 }
 //AJOUTER LES ITEM SUIVANT CETTE SYNTAXE: var nom = createImage(src, width, height);
 var lit = createImage('assets/world1/lit.svg', 1150, 577);
-var peluche = createImage('assets/world1/peluche.svg', 337, 318);
+var peluche = createImage('assets/world1/peluche.svg', 318, 318);
 var maison = createImage('assets/world2/maison.svg', 255, 145);
+var etage = createImage('assets/world2/etage.svg', 547, 219);
+var toit = createImage('assets/world2/toit.svg', 354, 68);
 
 
 //FIN ITEM
 var canvas = $('#graphic'),
 	canvasM,
 	ctx = canvas[0].getContext('2d'),
-	step = 5,
+	step = 10,
 	speed = 15,
 	score = 0,
 	dead = 0,
 	first = true,
 	world = 1,
 	scrollBG = 0,
-	move = 0;
+	move = 0,
+	altItem = 0,
+	unlock = 0;
 function gameBlock(img, sizex, sizey, posx, posy){
 	this.img = img;
 	this.sizex = sizex;
@@ -79,28 +83,34 @@ function initbg(){
 	}
 }
 
-function getItem(id){
+function getItem(def){
 	switch(world){
 		case 1://item monde 1
-			switch(id){
-				case 1:
-					return lit;
-					break;
-				case 2:
-					return peluche;
-					break;
-			}
+			if(def) return lit;
+			else
+				switch(Math.floor((Math.random()*2)+1)){
+					case 1:
+						return lit;
+						break;
+					case 2:
+						return peluche;
+						break;
+				};
 		case 2://item monde 2
-			switch(id){
-				case 1:
-					return maison;
-					break;
-				case 2:
-					return peluche;
-					break;
-			}
+			if(def) return maison;
+			else
+				switch(altItem%2){
+					case 0:
+						altItem++;
+						return etage;
+						break;
+					case 1:
+						altItem++;
+						return toit;
+						break;
+				};
 		case 3://item monde 3
-			switch(id){
+			switch(Math.floor((Math.random()*2)+1)){
 				case 1:
 					return nuage;
 					break;
@@ -109,7 +119,7 @@ function getItem(id){
 					break;
 			}
 		case 4://item monde 4
-			switch(id){
+			switch(Math.floor((Math.random()*2)+1)){
 				case 1:
 					return aste;
 					break;

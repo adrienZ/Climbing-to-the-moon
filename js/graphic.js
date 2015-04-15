@@ -56,13 +56,13 @@ function kek(ctx2,doBg){
 		ctx2.moveTo(canvas.width()/2-150,0);
 		ctx2.lineTo(canvas.width()/2-150,canvas.height());
 		ctx2.stroke();
-		if(blocks.length<=9){
+		if(blocks.length<=15){
 	    	for(var i = 0; i < blocks.length-1; i++){
 		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 			}
 	    }
 	    else{ 
-	    	for(var i = blocks.length-9; i < blocks.length-1; i++){
+	    	for(var i = blocks.length-15; i < blocks.length-1; i++){
 		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 			}
 		}
@@ -74,7 +74,7 @@ function draw(){
 	if(blocks.length<=4) {
 		//ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 		ctx.drawImage(cacheBg,0,0);
-		ctx.beginPath();
+		/*ctx.beginPath();
 		ctx.moveTo(canvas.width()/2+150,0);
 		ctx.lineTo(canvas.width()/2+150,canvas.height());
 		ctx.stroke();
@@ -110,7 +110,7 @@ function draw(){
 	ctx.drawImage(blocks[blocks.length-1].img, blocks[blocks.length-1].posx, blocks[blocks.length-1].posy, blocks[blocks.length-1].sizex, blocks[blocks.length-1].sizey);
 }
 var ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0;
-function dropAn(tryagain){
+function dropAn(tryagain,sbt){
 	$('#go').prop("disabled", true);
 	$('#next').prop("disabled", true);
 	var sutepu = 1;
@@ -140,11 +140,11 @@ function dropAn(tryagain){
 		else if(ani10>800) {
 			go = false;
 		}
-		if(go) setTimeout(function(){incre(tryagain);}, 20);
+		if(go) setTimeout(function(){incre(tryagain);}, 15);
 		else {
 			if(tryagain){
 				$('#go').prop("disabled", false);
-				if(checkScore())$('#next').prop("disabled", false);
+				if(unlock)$('#next').prop("disabled", false);
 			}
 			else {
 				drawBg(1,1);
