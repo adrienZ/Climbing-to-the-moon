@@ -7,27 +7,26 @@ function scrollAn(h,sH){
 	}
 	else{
 		scrollBG += 5;
-		cacheBg = renderCache(canvas.width(), canvas.height(), 1);
 	}
 	if(ok){
 		setTimeout(function(){scrollAn(h,sH);}, 10);
 	}
 	//Animation de scroll
 }
-function drawBg(){
+var pat;
+function drawBg(isFirst, newBg){
 	try{
-		//if(scrollBG+bg.posy >= 0) scrollBG = 0;
-		var pat=ctx.createPattern(bg.img,"repeat");
+		if(newBg) pat=ctx.createPattern(bg.img,"repeat");
+		ctx.beginPath();
 		ctx.rect(0,0,canvas.width(), canvas.height());
 		ctx.setTransform(1,0,0,1,0,scrollBG);
 		ctx.fillStyle=pat;
 		ctx.fill();
-		cacheBg = renderCache(canvas.width(), canvas.height(), 1);
-		//ctx.drawImage(bg.img, bg.posx, bg.posy+scrollBG, bg.sizex, bg.sizey);
+		if(isFirst) cacheBg = renderCache(canvas.width(), canvas.height(), 1);
 	}
 	catch(e){
 		console.log("Image is loading");
-		setTimeout(drawBg, 30);
+		setTimeout(function(){drawBg(isFirst,newBg);}, 30);
 	}
 }
 function renderCache(width, height, doBg){
@@ -41,61 +40,82 @@ function renderCache(width, height, doBg){
 var cacheBg, cacheBl;
 function kek(ctx2,doBg){
 	if(doBg){
-	var pat=ctx2.createPattern(bg.img,"repeat");
-	ctx2.rect(0,0,canvas.width(), canvas.height());
-	ctx2.setTransform(1,0,0,1,0,scrollBG);
-	ctx2.fillStyle=pat;
-	ctx2.fill();
+		var pat2=ctx2.createPattern(bg.img,"repeat");
+		ctx2.rect(0,0,canvas.width(), canvas.height());
+		ctx2.setTransform(1,0,0,1,0,scrollBG);
+		ctx2.fillStyle=pat;
+		ctx2.fill();
 	}
 	else{
-	ctx2.setTransform(1,0,0,1,0,0);
-	if(blocks.length<=9){
-    	for(var i = 0; i < blocks.length-1; i++){
-	 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
+		ctx2.setTransform(1,0,0,1,0,0);
+		ctx2.beginPath();
+		ctx2.moveTo(canvas.width()/2+150,0);
+		ctx2.lineTo(canvas.width()/2+150,canvas.height());
+		ctx2.stroke();
+		ctx2.beginPath();
+		ctx2.moveTo(canvas.width()/2-150,0);
+		ctx2.lineTo(canvas.width()/2-150,canvas.height());
+		ctx2.stroke();
+		if(blocks.length<=9){
+	    	for(var i = 0; i < blocks.length-1; i++){
+		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
+			}
+	    }
+	    else{ 
+	    	for(var i = blocks.length-9; i < blocks.length-1; i++){
+		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
+			}
 		}
-    }
-    else{ 
-    	for(var i = blocks.length-9; i < blocks.length-1; i++){
-	 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
-		}
-	}
 	}
 
 }
 function draw(){
 	ctx.setTransform(1,0,0,1,0,0);
-	//if(blocks.length<=4) {
+	if(blocks.length<=4) {
 		//ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-		//drawBg();
+		ctx.drawImage(cacheBg,0,0);
+		ctx.beginPath();
+		ctx.moveTo(canvas.width()/2+150,0);
+		ctx.lineTo(canvas.width()/2+150,canvas.height());
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.moveTo(canvas.width()/2-150,0);
+		ctx.lineTo(canvas.width()/2-150,canvas.height());
+		ctx.stroke();
 		/*for(var i = 0; i < blocks.length-1; i++){
 				ctx.beginPath();
 		 		ctx.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 		}*/
-	//}
-	//if(!move){
-	//}
+	}
+	else if(move){
+		drawBg(0,0);
+	}
+	else{
+		ctx.drawImage(cacheBg,0,0);
+	}
 	//else{
 	//	drawBg();
 	//}
 	ctx.setTransform(1,0,0,1,0,0);
-	ctx.drawImage(cacheBg,0,0);
 	ctx.drawImage(cacheBl,0,0);
-	ctx.beginPath();
+	/*ctx.beginPath();
 	ctx.moveTo(canvas.width()/2+150,0);
 	ctx.lineTo(canvas.width()/2+150,canvas.height());
 	ctx.stroke();
 	ctx.beginPath();
 	ctx.moveTo(canvas.width()/2-150,0);
 	ctx.lineTo(canvas.width()/2-150,canvas.height());
-	ctx.stroke();
+	ctx.stroke();*/
 	ctx.setTransform(1,ani05, ani05n, 1, ani30, ani10);
 	ctx.drawImage(blocks[blocks.length-1].img, blocks[blocks.length-1].posx, blocks[blocks.length-1].posy, blocks[blocks.length-1].sizex, blocks[blocks.length-1].sizey);
 }
 var ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0;
-function dropAn(){
+function dropAn(tryagain){
+	$('#go').prop("disabled", true);
+	$('#next').prop("disabled", true);
 	var sutepu = 1;
 	var go = true;
-	function incre(){
+	function incre(tryagain){
 		sutepu += 0.3;
 		var conti = false;
 		if(blocks[blocks.length-1].posx < (canvas.width()/2) && !conti){
@@ -120,10 +140,19 @@ function dropAn(){
 		else if(ani10>800) {
 			go = false;
 		}
-		if(go) setTimeout(incre, 20);
-		else $('#go').prop("disabled", false);
+		if(go) setTimeout(function(){incre(tryagain);}, 20);
+		else {
+			if(tryagain){
+				$('#go').prop("disabled", false);
+				if(checkScore())$('#next').prop("disabled", false);
+			}
+			else {
+				drawBg(1,1);
+				restart(1);
+			}
+		}
 	}
-	setTimeout(incre, 200);
+	setTimeout(function(){incre(tryagain);}, 200);
 	//Animation de mort
 }
-drawBg();
+drawBg(1,1);

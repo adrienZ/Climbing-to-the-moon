@@ -1,5 +1,4 @@
 function physic(){
-	var canvasM = canvas.width()/2;
 	function checkFinal(posX, sizeX, size){
 		//console.log("Checking");
 		var objM = posX+sizeX/2;
@@ -11,14 +10,14 @@ function physic(){
 		if(isGood)
 		{
 			var center = canvasM-(posX+(objM));
-			score += Math.abs(Math.round(100-(Math.abs(center)/75)*100));
-			//sendScore();
+			score += world*Math.abs(Math.round(100-(Math.abs(center)/75)*100));
+			if(checkScore()) $('#next').prop("disabled", false);
 			nextBlock();
 		}
 		else{
-			dropAn();
-			clearInterval(moveRight);
-			clearInterval(checkFail);
+			dropAn(1);
+			iCheckFail(0);
+			iMoveRight(0);
 			$(window).off("keypress");
 		}
 	}
@@ -52,16 +51,6 @@ function physic(){
 			//}
 		}
 	}
-	function rektangle(){
-		if(blocks[blocks.length-1].posx > (canvasM+150)){
-			clearInterval(checkFail);
-			clearInterval(moveRight);
-			dropAn();
-			$(window).off("keypress");
-			//death();
-		}
-
-	}
 	/*function drawLast(){
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 		ctx.setTransform(1,0,0, 1,0,0);
@@ -79,20 +68,26 @@ function physic(){
 	/*$('#failed').on("tap", function(ev){
 		checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
 	});*/
-	/*var renderToCanvas = function (width, height) {
-	    var buffer = document.createElement('canvas');
-	    buffer.width = width;
-	    buffer.height = height;
-	    draw(buffer.getContext('2d'));
-	    return buffer;
-	};
-	var cached = renderToCanvas(1280, 500);*/
-	//ctx.drawImage(cached,0,0);
-	//setInterval(drawLast,16);
-	//ctx.drawImage(cached, 0, 0);
-	var checkFail = setInterval(rektangle, 30);
-	var moveRight = setInterval(function() {blocks[blocks.length-1].posx = dirRight(blocks[blocks.length-1].posx, step);}, speed);
-	/*function death(){
-		return 0;
-	}*/
+	iCheckFail(1);
+	iMoveRight(1);
+}
+function rektangle(){
+	console.log("lollolololololol");
+	if(blocks[blocks.length-1].posx > (canvasM+150)){
+		iCheckFail(0);
+		iMoveRight(0);
+		dropAn(1);
+		$(window).off("keypress");
+		//death();
+	}
+
+}
+var checkFail, moveRight;
+function iCheckFail(bool){
+	if(bool) checkFail = setInterval(rektangle, 30);
+	else clearInterval(checkFail);
+}
+function iMoveRight(bool){
+	if(bool) moveRight = setInterval(function() {blocks[blocks.length-1].posx = dirRight(blocks[blocks.length-1].posx, step);}, speed);
+	else clearInterval(moveRight);
 }

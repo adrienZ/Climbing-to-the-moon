@@ -8,12 +8,14 @@ function createImage(src, width, height){
 //AJOUTER LES ITEM SUIVANT CETTE SYNTAXE: var nom = createImage(src, width, height);
 var lit = createImage('assets/world1/lit.svg', 1150, 577);
 var peluche = createImage('assets/world1/peluche.svg', 337, 318);
+var maison = createImage('assets/world2/maison.svg', 255, 145);
 
 
 //FIN ITEM
-var canvas = $('#graphic'), 
+var canvas = $('#graphic'),
+	canvasM,
 	ctx = canvas[0].getContext('2d'),
-	step = 10,
+	step = 5,
 	speed = 15,
 	score = 0,
 	dead = 0,
@@ -43,25 +45,36 @@ function initbg(){
 			var bgI = new Image();
 			bgI.src = 'assets/bg/bg1.svg';
 			bgI.onload = function(){
+			bg = null;
 			return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
 			break;
 		case 2:
 			var bgI = new Image();
 			bgI.src = 'assets/bg/bg2.svg';
 			bgI.onload = function(){
-			return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
+				bg = null;
+				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
 			break;
 		case 3:
 			var bgI = new Image();
 			bgI.src = 'assets/bg/bg3.svg';
 			bgI.onload = function(){
-			return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
+				bg = null;
+				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
 			break;
 		case 4:
 			var bgI = new Image();
 			bgI.src = 'assets/bg/bg4.svg';
 			bgI.onload = function(){
-			return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
+				bg = null;
+				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
+			break;
+		case 5:
+			var bgI = new Image();
+			bgI.src = 'assets/bg/bg5.svg';
+			bgI.onload = function(){
+				bg = null;
+				return bg = new gameBlock(bgI, canvas.width(), bgI.height, 0, canvas.height()-bgI.height);};
 			break;
 	}
 }
@@ -80,10 +93,10 @@ function getItem(id){
 		case 2://item monde 2
 			switch(id){
 				case 1:
-					return etage;
+					return maison;
 					break;
 				case 2:
-					return etage2;
+					return peluche;
 					break;
 			}
 		case 3://item monde 3
