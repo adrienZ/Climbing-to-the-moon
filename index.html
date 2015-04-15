@@ -9,11 +9,15 @@
 		<canvas id="graphic" style="border:thin solid grey;"></canvas>
 		<div id="blockscore"></div>
 		<div id="nbrblock"></div>
-		<button id='go'>Start</div>
-		<button id='next' disabled>Next world</div>
+		<button id='go'>Start</button>
+		<button id='next' disabled>Next world</button>
+		<button id='musicControl'>Music Off</button>
+
 	
 	
 		<!-- scripts -->
+		<audio id="music" volume="0.5" loop src="assets/music/music.mp3"></audio>
+		<audio id="sfx" src="assets/music/drop.wav"></audio>
 		<script src="js/jquery.js" type="text/javascript"></script>
 		<!--<script src="main.js" type="text/javascript"></script>-->
 		<script src="js/physic.js" type="text/javascript"></script>

@@ -23,6 +23,13 @@ function drawBg(isFirst, newBg){
 		ctx.fillStyle=pat;
 		ctx.fill();
 		if(isFirst) cacheBg = renderCache(canvas.width(), canvas.height(), 1);
+		if(ground){
+			switch(world){
+				case 1:
+					ctx.drawImage(basebg1,0,scrollBG,basebg1.width,basebg1.height);
+					break;
+			}
+		}
 	}
 	catch(e){
 		console.log("Image is loading");
@@ -45,6 +52,13 @@ function kek(ctx2,doBg){
 		ctx2.setTransform(1,0,0,1,0,scrollBG);
 		ctx2.fillStyle=pat;
 		ctx2.fill();
+		if(ground){
+			switch(world){
+				case 1:
+					ctx2.drawImage(basebg1,0,scrollBG,basebg1.width,basebg1.height);
+					break;
+			}
+		}
 	}
 	else{
 		ctx2.setTransform(1,0,0,1,0,0);

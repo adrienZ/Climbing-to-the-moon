@@ -1,3 +1,5 @@
+$('#graphic').attr('width', $(window).width()-5);
+$('#graphic').attr('height', $(window).height()-100);
 function physic(){
 	function checkFinal(posX, sizeX, size){
 		//console.log("Checking");
@@ -20,7 +22,8 @@ function physic(){
 			if(checkScore()){
 				$('#next').prop("disabled", false);
 				unlock = 1;
-			} 
+			}
+			document.getElementById('sfx').play();
 			nextBlock();
 		}
 		else{

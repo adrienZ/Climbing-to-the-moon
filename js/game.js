@@ -10,6 +10,7 @@ function start(){
 	$("#go").on('click',function(){ restart(0);});
 	drawBg(1,1);
 	setInterval(draw, 15);
+	if(music) document.getElementById('music').play();
 	physic();
 }
 function restart(nextworld){
@@ -54,8 +55,19 @@ function nextWorld(){
 		bg = initbg();
 	}
 }
-$('#graphic').attr('width', $(window).width()-5);
-$('#graphic').attr('height', $(window).height()-100);
-$("#go").on('click',function(){ start();});
-$("#next").on('click',function(){ nextWorld();});
+function musicControl(){
+	if(music){
+		music = 0;
+		$('#musicControl').html("Music On");
+		document.getElementById('music').volume= 0;
+	}
+	else{
+		music = 1;
+		$('#musicControl').html("Music Off");
+		document.getElementById('music').volume= 0.5;
+	}
+}
 
+$("#go").on('click',function(){ start();});
+$("#musicControl").on('click',function(){ musicControl();});
+$("#next").on('click',function(){ nextWorld();});

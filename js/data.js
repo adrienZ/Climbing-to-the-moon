@@ -6,11 +6,17 @@ function createImage(src, width, height){
 	return image;
 }
 //AJOUTER LES ITEM SUIVANT CETTE SYNTAXE: var nom = createImage(src, width, height);
+var basebg1 = new Image();
+	basebg1.src= "assets/bg/base1.svg";
+	basebg1.height = $('#graphic').height();
+	basebg1.width = $('#graphic').width();
 var lit = createImage('assets/world1/lit.svg', 1150, 577);
 var peluche = createImage('assets/world1/peluche.svg', 318, 318);
 var maison = createImage('assets/world2/maison.svg', 255, 145);
 var etage = createImage('assets/world2/etage.svg', 547, 219);
 var toit = createImage('assets/world2/toit.svg', 354, 68);
+
+
 
 
 //FIN ITEM
@@ -26,7 +32,9 @@ var canvas = $('#graphic'),
 	scrollBG = 0,
 	move = 0,
 	altItem = 0,
-	unlock = 0;
+	unlock = 0,
+	music = 1,
+	ground = 1;
 function gameBlock(img, sizex, sizey, posx, posy){
 	this.img = img;
 	this.sizex = sizex;
