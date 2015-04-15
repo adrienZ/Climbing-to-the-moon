@@ -8,6 +8,7 @@ else if($(window).width()<1280 && $(window).height()<720) {
 }
 var viewportW = $('#graphic').attr('width');
 var viewportH = $('#graphic').attr('height');
+var blocks = new Array();
 function physic(){
 	var item1 = getItem(1);
 	var getH = Math.round(item1.height/item1.width * viewportW/4);
@@ -46,6 +47,7 @@ function checkFinal(posX, sizeX, size){
 		dropAn(1,weirdConstr);
 		iCheckFail(0);
 		iMoveRight(0);
+		$('#pause').prop("disabled", true);
 		document.getElementById('lose').play();
 		$(window).off("keypress");
 	}
@@ -92,6 +94,7 @@ function rektangle(){ //Vérifie que l'item ne sorte pas des limites du jeu
 		iCheckFail(0);
 		iMoveRight(0);
 		dropAn(1);
+		$('#pause').prop("disabled", true);
 		document.getElementById('lose').play();
 		$(window).off("keypress");
 	}

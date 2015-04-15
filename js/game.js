@@ -1,6 +1,4 @@
-var blocks = new Array();
 var isStart = 0;
-//Just launch vital fonction
 function start(){
 	canvasM = canvas.width()/2;
 	isStart = 1;
@@ -73,12 +71,13 @@ function musicControl(){
 		$('#musicControl').prop("disabled", true);
 		music = 1;
 		$('#musicControl').html("Music Off");
-		document.getElementById('music').volume= 0.5;
+		if(!paused)document.getElementById('music').volume= 0.5;
 		setTimeout(function(){$('#musicControl').prop("disabled", false);}, 10);
 	}
 }
 function pause(){
 	if(paused){
+		if(music)document.getElementById('music').volume= 0.5;
 		$('#pause').prop("disabled", true);
 		keyEvent();
 		paused = 0;
@@ -88,6 +87,7 @@ function pause(){
 		setTimeout(function(){$('#pause').prop("disabled", false);}, 10);
 	}
 	else{
+		document.getElementById('music').volume= 0;
 		$('#pause').prop("disabled", true);
 		paused = 1;
 		$(window).off("keypress");
