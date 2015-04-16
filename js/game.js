@@ -42,19 +42,19 @@ function restart(nextworld){
 function checkScore(){//La hauteur à atteindre pour le niveau suivant
 	switch(world){
 		case 1:
-			if(nbrblock>=0) return 0;
+			if(nbrblock>=10) return 0;
 			else return ((nbrblock/10)*100);
 			break;
 		case 2:
-			if(nbrblock>=0) return 0;
+			if(nbrblock>=20) return 0;
 			else return ((nbrblock/20)*100);
 			break;
 		case 3:
-			if(nbrblock>=0) return 0;
+			if(nbrblock>=30) return 0;
 			else return ((nbrblock/30)*100);
 			break;
 		case 4 :
-			if(nbrblock>=0) return 0;
+			if(nbrblock>=40) return 0;
 			else return ((nbrblock/40)*100);
 			break;
 		default:
