@@ -1,10 +1,9 @@
-/*@font-face {
+@font-face {
     font-family: 'fishfingers';
-    src: url('../fonts/FishfingersLight.ttf');
+    src: url('./assets/css/fishfingers.ttf');
         }
-    */
 *{
- /*font-family: 'fishfingers';*/
+    font-family: 'fishfingers';
     box-sizing: border-box;
     margin:0;
     padding:0;
@@ -27,33 +26,26 @@ body{
     left: 12vh;
 }
 .topBtn{
-    border:none;
     width: 6vh;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
     height: 6vh;
-    position:absolute;
     top:2vh;
-    background-color: transparent;
-    cursor: pointer;
 }
-#scorepoint {
-    position: absolute;
+#scorepoint, #nbrbl {
     width: 24vh;
     height: 6vh;
     right: 5vh;
-    top:2vh;
-        background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+    cursor: default;
 }
-#blockscore{
+#nbrbl{
+    top:10vh;
+    cursor: default;  
+}
+#blockscore, #nbrblock{
     float:left;
     line-height: 6vh;
-    padding-left:5px;
     color:white;
     font-size:1.5em;
+    padding-left:8px;
 }
 #go{
     left: 10vh;
@@ -64,8 +56,10 @@ body{
     height: 10vh;
 }
 .botBtn{
-    position:absolute;
     bottom:3vh;
+}
+.botBtn, .topBtn{
+    position:absolute;
     border:none;
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -76,4 +70,45 @@ body{
 }
 .game{
     position:relative;
+}
+#unlock{
+    right: 22vh;
+    bottom: 6vh;
+    color: white;
+    font-size: 1.4em;
+}
+#progress{
+    position:relative;
+}
+#barO{
+    background-color: #000;
+    width: 80%;
+    height: 5vh;
+    margin-top: 1vh;
+    margin-left: 12vh;
+    border-radius:15px;
+    overflow:hidden;
+    z-index:0;
+    position:relative;
+}
+#barI{
+    background-color: #FFF;
+    z-index: 1;
+    height: 6vh;
+    position: absolute;
+    width: 112%;
+    display: block;
+    top: -1vh;
+    left: -107%;
+    border-radius: 14px;
+    margin-top: 6px;
+}
+#imgTete{
+    position:absolute;
+    top:-55px;
+}
+#imgcont{
+    width:80%;
+    position:relative;
+    margin-left: 12vh;
 }

@@ -47,10 +47,19 @@ function checkFinal(posX, sizeX, size){
 		var center = canvasM-(posX+(objM));
 		score += world*Math.abs(Math.round(100-(Math.abs(center)/75)*100));
 		nbrblock++;
-		if(checkScore()){
+		var checked = checkScore();
+		if(checked == 0){
 			$('#next').prop("disabled", false);
 			unlock = 1;
+			$('#unlock').html("Next world unlocked!");
+			$('#imgTete').css("left", "95%");
+			$("#barI").css('left', "0%");
 			$('#next').css("background-image", "url('./assets/css/world"+(world+1)+unlock+".svg')");
+		}
+		else{
+			if(checked-5 > 0) $('#imgTete').css("left", checked-5+"%");
+			else $('#imgTete').css("left", "0%");
+			$("#barI").css('left', (checked-112)+"%");
 		}
 		document.getElementById('sfx').play();
 		nextBlock();

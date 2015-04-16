@@ -10,12 +10,16 @@
             <canvas id="graphic" height="720" width="1280"></canvas>
             <button id='pause' class="topBtn" disabled></button> 
             <button id='musicControl' class="topBtn"></button>
-            <div id="scorepoint"><span id="blockscore"></span></div>
-            <!--<div id="nbrblock"></div>-->
+            <div id="scorepoint" class="topBtn"><span id="blockscore"></span></div>
+            <div id="nbrbl" class="topBtn"><span id="nbrblock"></span></div>
             <button id='go' class="botBtn" disabled>Loading...</button>
-            <button id='next' class="botBtn" disabled></button>
+            <span class="botBtn" id="unlock"></span><button id='next' class="botBtn" disabled></button>
+            <div id="progress">
+                <div id="barO"><div id="barI"></div></div>
+                <div id="imgcont"><img id="imgTete" src="./assets/css/tomtete.svg" alt="Tête de tom"/></div>
+            </div>
         </div>
-                <!-- scripts -->
+        <!-- scripts -->
         <audio id="music" loop src="assets/music/music.mp3"></audio>
         <audio id="sfx" src="assets/music/drop.wav"></audio>
         <audio id="lose" src="assets/music/lose.wav"></audio>

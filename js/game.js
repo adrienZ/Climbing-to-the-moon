@@ -4,6 +4,8 @@ function start(){ //Start the game
 	isStart = 1;
 	$('#pause').prop("disabled", false);
 	$("#go").off('click');
+	$('#imgTete').css("left", "0%");
+	$("#barI").css('left', "-107%");
 	if(world == 1)$('#go').css("background-image", "url('./assets/css/retry"+world+tom+".svg')");
 	else $('#go').css("background-image", "url('./assets/css/retry"+world+".svg')");
 	$("#go").css({"width":"6vh", "height":"6vh"});
@@ -20,6 +22,8 @@ function restart(nextworld){
 	if(!nextworld)score= 0;
 	ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0; 
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	$('#imgTete').css("left", "0%");
+	$("#barI").css('left', "-107%");
     blocks = [];
     scrollBG = 0;//Reset score and anim
     $("#go").off('click');
@@ -38,16 +42,20 @@ function restart(nextworld){
 function checkScore(){//La hauteur à atteindre pour le niveau suivant
 	switch(world){
 		case 1:
-			if(nbrblock>0) return 1;
+			if(nbrblock>=10) return 0;
+			else return ((nbrblock/10)*100);
 			break;
 		case 2:
-			if(nbrblock>0) return 1;
+			if(nbrblock>=20) return 0;
+			else return ((nbrblock/20)*100);
 			break;
 		case 3:
-			if(nbrblock>0) return 1;
+			if(nbrblock>=30) return 0;
+			else return ((nbrblock/30)*100);
 			break;
 		case 4 :
-			if(nbrblock>999999) return 1;
+			if(nbrblock>=999) return 0;
+			else return ((nbrblock/999)*100);
 			break;
 		default:
 			return 0;
@@ -58,6 +66,7 @@ function checkScore(){//La hauteur à atteindre pour le niveau suivant
 function nextWorld(){//Go to next world function
 	if(world != 5){
 		$('#next').prop("disabled", true);
+		$("#unlock").html("");
 		dropAn(0);
 		worldStep += 3;
 		totalBlk += nbrblock;
@@ -65,6 +74,8 @@ function nextWorld(){//Go to next world function
 		iCheckFail(0);
 		iMoveRight(0);
 		unlock = 0;
+		$('#imgTete').css("left", "0%");
+		$("#barI").css('left', "-107%");
 		$(window).off("keypress");
 		$(window).off("keyup");
 		world++;
@@ -138,12 +149,14 @@ function goCss(){ //Update css with the world
 		if(music) $('#musicControl').css("background-image", "url('./assets/css/sound"+world+".svg')");
 		else $('#musicControl').css("background-image", "url('./assets/css/mute"+world+".svg')");
 		$('#scorepoint').css("background-image", "url('./assets/css/score"+world+".svg')");
+		$('#nbrbl').css("background-image", "url('./assets/css/bloc"+world+".svg')");
 	}
 	else{
 		$('#pause').css("background-image", "url('./assets/css/pause"+world+tom+".svg')");
 		if(music) $('#musicControl').css("background-image", "url('./assets/css/sound"+world+tom+".svg')");
 		else $('#musicControl').css("background-image", "url('./assets/css/mute"+world+tom+".svg')");
 		$('#scorepoint').css("background-image", "url('./assets/css/score"+world+tom+".svg')");
+		$('#nbrbl').css("background-image", "url('./assets/css/bloc"+world+tom+".svg')");
 
 	}
 	if(world<4) $('#next').css("background-image", "url('./assets/css/world"+(world+1)+unlock+".svg')");
