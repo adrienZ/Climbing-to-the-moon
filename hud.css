@@ -29,13 +29,14 @@ body{
 .topBtn{
     border:none;
     width: 6vh;
-    background-size: cover;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
     height: 6vh;
     position:absolute;
     top:2vh;
     background-color: transparent;
+    cursor: pointer;
 }
 #scorepoint {
     position: absolute;
@@ -43,6 +44,8 @@ body{
     height: 6vh;
     right: 5vh;
     top:2vh;
+        background-repeat: no-repeat;
+    background-position: center;
     background-size: 100% 100%;
 }
 #blockscore{
@@ -57,18 +60,19 @@ body{
 }
 #next{
     right: 10vh;
+    width: 10vh;
+    height: 10vh;
 }
 .botBtn{
     position:absolute;
     bottom:3vh;
     border:none;
-    width: 10vh;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
-    height: 10vh;
     position:absolute;
     background-color: transparent;
+    cursor: pointer;
 }
 .game{
     position:relative;

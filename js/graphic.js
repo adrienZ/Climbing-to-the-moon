@@ -154,7 +154,9 @@ function dropAn(tryagain,sbt){
 				drawBg(1,1);
 				ground = 1;
 				cacheBl = renderCache(canvas.width(), canvas.height(), 2);
-				$('#go').html("Start");
+				if(world == 1)$('#go').css("background-image", "url('./assets/css/start"+world+tom+".svg')");
+				else $('#go').css("background-image", "url('./assets/css/start"+world+".svg')");
+				$("#go").css({"width":"30vh", "height":"15vh"});
 				$('#go').prop("disabled", false);
 				$("#go").off('click');
 				goCss();

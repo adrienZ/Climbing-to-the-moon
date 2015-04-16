@@ -1,41 +1,41 @@
 var isStart = 0;
-function start(){
-	canvasM = canvas.width()/2;
+function start(){ //Start the game
+	canvasM = canvas.width()/2; //Define the canvas width
 	isStart = 1;
 	$('#pause').prop("disabled", false);
 	$("#go").off('click');
-	$("#go").html("Try again");
+	if(world == 1)$('#go').css("background-image", "url('./assets/css/retry"+world+tom+".svg')");
+	else $('#go').css("background-image", "url('./assets/css/retry"+world+".svg')");
+	$("#go").css({"width":"6vh", "height":"6vh"});
 	$('#go').prop("disabled", true);
-	$("#go").on('click',function(){ restart(0);});
+	$("#go").on('click',function(){ restart(0);}); //Enable pause button and the like
 	drawBg(1,1);
 	setInterval(draw, 15);
 	if(music)document.getElementById('music').volume= 0.5;
-	document.getElementById('music').play();
-	$(document).on('keyup',function(event){
-	if(event.keyCode == 27) pause();
-	console.log(event.keyCode);});
-	physic();
+	document.getElementById('music').play();//Play music (no volume if it's off)
+	$(document).on('keyup',function(event){if(event.keyCode == 27) pause();}); //enable pause on escape
+	physic(); //launch physic
 }
 function restart(nextworld){
 	if(!nextworld)score= 0;
-	ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0;
+	ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0; 
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     blocks = [];
-    scrollBG = 0;
+    scrollBG = 0;//Reset score and anim
     $("#go").off('click');
 	$("#go").on('click',function(){ restart(0);});
     ground = 1;
     drawBg(1,1);
-    step = worldStep;
+    step = worldStep;//Reset steps for blockspeed
     $('#pause').prop("disabled", false);
 	$('#go').prop("disabled", true);
-	$('#go').html("Try Again");
-	$(document).on('keyup',function(event){
-	if(event.keyCode == 27) pause();
-	console.log(event.keyCode);});
-	physic();
+	if(world == 1)$('#go').css("background-image", "url('./assets/css/retry"+world+tom+".svg')");
+	else $('#go').css("background-image", "url('./assets/css/retry"+world+".svg')");
+	$("#go").css({"width":"6vh", "height":"6vh"});
+	$(document).on('keyup',function(event){if(event.keyCode == 27) pause();});
+	physic();//Same as start...
 }
-function checkScore(){//La haute à atteindre pour le niveau suivant
+function checkScore(){//La hauteur à atteindre pour le niveau suivant
 	switch(world){
 		case 1:
 			if(nbrblock>0) return 1;
@@ -55,7 +55,7 @@ function checkScore(){//La haute à atteindre pour le niveau suivant
 	}
 }
 
-function nextWorld(){
+function nextWorld(){//Go to next world function
 	if(world != 5){
 		$('#next').prop("disabled", true);
 		dropAn(0);
@@ -71,11 +71,10 @@ function nextWorld(){
 		bg = initbg();
 	}
 }
-function musicControl(){
+function musicControl(){ //Control the music
 	if(music){
 		$('#musicControl').prop("disabled", true);
 		music = 0;
-		//$('#musicControl').html("Music On");
 		if(world>1) $('#musicControl').css("background-image", 'url("./assets/css/mute'+world+'.svg")');
 		else $('#musicControl').css("background-image", 'url("./assets/css/mute'+world+tom+'.svg")');
 		document.getElementById('music').volume= 0;
@@ -85,14 +84,13 @@ function musicControl(){
 	else{
 		$('#musicControl').prop("disabled", true);
 		music = 1;
-		//$('#musicControl').html("Music Off");
 		if(world>1) $('#musicControl').css("background-image", 'url("./assets/css/sound'+world+'.svg")');
 		else $('#musicControl').css("background-image", 'url("./assets/css/sound'+world+tom+'.svg")');
 		if(!paused)document.getElementById('music').volume= 0.5;
 		setTimeout(function(){$('#musicControl').prop("disabled", false);}, 10);
 	}
 }
-function pause(){
+function pause(){ //pause the game
 	if(paused){
 		if(music)document.getElementById('music').volume= 0.5;
 		$('#pause').prop("disabled", true);
@@ -102,7 +100,6 @@ function pause(){
 		iMoveRight(1);
 		if(world>1) $('#pause').css("background-image", 'url("./assets/css/pause'+world+'.svg")');
 		else $('#pause').css("background-image", 'url("./assets/css/pause'+world+tom+'.svg")');
-		//$('#pause').html("Pause");
 		setTimeout(function(){$('#pause').prop("disabled", false);}, 10);
 	}
 	else{
@@ -112,7 +109,6 @@ function pause(){
 		$(window).off("keypress");
 		iCheckFail(0);
 		iMoveRight(0);
-		//$('#pause').html("Play");
 		if(world>1) $('#pause').css("background-image", 'url("./assets/css/play'+world+'.svg")');
 		else $('#pause').css("background-image", 'url("./assets/css/play'+world+tom+'.svg")');
 		setTimeout(function(){$('#pause').prop("disabled", false);}, 10);
@@ -126,27 +122,27 @@ $("#next").on('click',function(){ nextWorld();});
 $(window).resize(function() {
   
 });
-document.getElementById('music').addEventListener('canplaythrough', function() { 
-	$('#go').html("Start");
+document.getElementById('music').addEventListener('canplaythrough', function() { //Wait until everything is loaded to enable start
+	if(world == 1)$('#go').css("background-image", "url('./assets/css/start"+world+tom+".svg')");
+	else $('#go').css("background-image", "url('./assets/css/start"+world+".svg')");
+	$("#go").css({"width":"30vh", "height":"15vh"});
+	$("#go").html("");
 	$('#go').prop("disabled", false);
 	drawBg(1,1);
 }, false);
 
 
-function goCss(){
+function goCss(){ //Update css with the world
 	if(world>1){
 		$('#pause').css("background-image", "url('./assets/css/pause"+world+".svg')");
 		if(music) $('#musicControl').css("background-image", "url('./assets/css/sound"+world+".svg')");
 		else $('#musicControl').css("background-image", "url('./assets/css/mute"+world+".svg')");
-		//$('#go').css("background-image", "url(../assets/css/start"+world+".svg");
 		$('#scorepoint').css("background-image", "url('./assets/css/score"+world+".svg')");
 	}
 	else{
 		$('#pause').css("background-image", "url('./assets/css/pause"+world+tom+".svg')");
 		if(music) $('#musicControl').css("background-image", "url('./assets/css/sound"+world+tom+".svg')");
 		else $('#musicControl').css("background-image", "url('./assets/css/mute"+world+tom+".svg')");
-		//$('#go').css("background-image", "url(../assets/css/start"+world+tom+".svg");
-		//$('#next').css("background-image", "url(../assets/css/pause"+world+tom+".svg");
 		$('#scorepoint').css("background-image", "url('./assets/css/score"+world+tom+".svg')");
 
 	}

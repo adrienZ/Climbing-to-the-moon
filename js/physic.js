@@ -30,18 +30,17 @@ function physic(){
 	iMoveRight(1);
 }
 function checkFinal(posX, sizeX, size){
-	//console.log("Checking");
 	var weirdConstr = false;
 	var objM = posX+sizeX/2;
 	if(size == 1 && posX < (canvasM+sizeX) && (posX+sizeX) > (canvasM-sizeX)) var isGood = true;
 	else if((posX < (canvasM+100) && (posX+sizeX) > (canvasM-100)) 
 		&& ((objM)+10 > blocks[size-2].posx && (objM)-10 < blocks[size-2].posx+blocks[size-2].sizex))
-		//&& (blocks.length > 3 && (objM)+10 > blocks[size-3].posx && (objM)-10 < blocks[size-3].posx+blocks[size-3].sizex))
+		/*&& (blocks.length > 3 && (objM)+10 > blocks[size-3].posx && (objM)-10 < blocks[size-3].posx+blocks[size-3].sizex))*/
 	 		var isGood = true;
-	//else if(blocks.length > 3 && !((objM)+10 > blocks[size-3].posx && (objM)-10 < blocks[size-3].posx+blocks[size-3].sizex)){
-	//	weirdConstr = true;
-	//	var isGood = false;
-	//}
+	/*else if(blocks.length > 3 && !((objM)+10 > blocks[size-3].posx && (objM)-10 < blocks[size-3].posx+blocks[size-3].sizex)){
+		weirdConstr = true;
+		var isGood = false;
+	}*/
 	else var isGood = false;
 	if(isGood)
 	{
@@ -57,7 +56,7 @@ function checkFinal(posX, sizeX, size){
 		nextBlock();
 	}
 	else{
-		dropAn(1,weirdConstr);
+		dropAn(1);
 		iCheckFail(0);
 		iMoveRight(0);
 		$('#pause').prop("disabled", true);
@@ -66,10 +65,7 @@ function checkFinal(posX, sizeX, size){
 		$(window).off("keypress");
 	}
 }
-function newBlock(id, height, posY, width, img){
-	//var img = getItem(0);
-	//width = img.width/img.height * height;
-	//console.log("Image: "+ img.src + " " + img.width +'*'+ img.height + " " + width +'*'+ height);
+function newBlock(id, height, posY, width, img){ //Actually create the item
 	move = true;
 	$('#nbrblock').html(nbrblock);
 	$('#blockscore').html(score);
@@ -82,13 +78,13 @@ function newBlock(id, height, posY, width, img){
 	if(blocks.length > 30) blocks.shift();
 	cacheBl = renderCache(canvas.width(), canvas.height(), 0);
 }
-function nextBlock(){
+function nextBlock(){ //Determine next item's caracteristics
 	var img = getItem(0);
 	if(img.width>img.height){
 		var tempoW = Math.floor(viewportW/8)-((blocks.length)+world/2);
 		if(tempoW < 30) tempoW = 30;
 		var tempoH = img.height/img.width * tempoW;
-	}//Math.floor((Math.random()*50)+26);
+	}
 	else{
 		var tempoH = Math.floor(viewportH/6)-((blocks.length)+5/2);
 		if(tempoH < 30) tempoH = 30;
@@ -114,10 +110,9 @@ function rektangle(){ //Vérifie que l'item ne sorte pas des limites du jeu
 		$(window).off("keyup");
 		$(window).off("keypress");
 	}
-
 }
 var checkFail, moveRight;
-function iCheckFail(bool){
+function iCheckFail(bool){//Set the interval for checking and moving
 	if(bool) checkFail = setInterval(rektangle, 100);
 	else clearInterval(checkFail);
 }
@@ -129,6 +124,6 @@ function keyEvent(){
 	$(window).on("keypress", function(event){
 			if(event.charCode == 32){
 				checkFinal(blocks[blocks.length-1].posx, blocks[blocks.length-1].sizex, blocks.length);
-			}
+			}//Key event for spacebar
 	});
 }
