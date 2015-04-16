@@ -1,0 +1,151 @@
+/*HERE IS THE POP-UP*/
+
+.choose
+{
+
+    height: 70vh;
+    width: 50vw;
+    border: 1px solid #F9F9F9;
+    margin-left: 25vw;
+    background: rgba(0, 0, 0, 0.56);
+    display: none;
+    box-shadow: 1vh 1vh 0.5vh rgba(0, 0, 0, 0.29);
+
+}
+.choose p 
+{
+
+    font-size: 5vh;
+    margin-top: 2%;
+    text-align: center;
+
+}
+
+
+}
+.choose a 
+{
+
+    height: 50%;
+    width: 50%;
+
+}
+
+/*HERE IS THE CONTENT*/
+
+
+.character 
+{
+
+    width: 50%;
+    display: inline-block;
+    height: 100%;
+    float: right;
+    background: rgba(46, 96, 171, 0.6); 
+    border: thin 0 thin 0 solid rgba(249, 249, 249, 0.55);
+
+}
+
+.character:hover
+{
+
+    background: rgb(255, 255, 255);
+    color: #2E60AB;
+
+}
+
+/*HERE IS THE TEXT*/
+
+.tom p
+{
+
+    text-align: left;
+    margin-left: 0.2vh;
+
+
+}
+
+.lea p 
+{
+
+    text-align: right;
+    margin-right: 0.2vh;
+
+}
+
+
+
+.character p:nth-child(2)
+{
+
+    position: fixed;
+    margin-top: 25vh;
+    width: 50%;
+
+}
+
+.character.tom p:nth-child(2)
+{
+
+    text-align: left;
+
+}
+
+.character.lea p:nth-child(2)
+{
+
+    text-align: right;
+
+}
+
+.name 
+{
+
+    text-align: center;
+    margin-top: 0%;
+    font-size: 10vh;
+    padding: 1vh ;
+    margin-bottom: 0;
+
+}
+
+/*HERE IS THE VISUAL*/
+
+.home img 
+{
+
+    height: 45vh;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 5%;
+    margin-bottom: 0;
+    display: block;
+    vertical-align: bottom;
+
+}
+
+
+
+@media screen and (max-width: 767px) /*ecrans de moins de 767*/
+{
+
+    .choose
+    {
+
+        display: none;
+
+    }
+
+}
+
+
+
+
+#close {
+    width: 30px;
+    height: 30px;
+    background: url(../img/cross.png) no-repeat center;
+    background-size: cover;
+    position: absolute;
+    margin: 1vh 0 0 1vh;

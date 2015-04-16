@@ -1,18 +1,13 @@
-@font-face {
+/*@font-face {
     font-family: 'fishfingers';
     src: url('./assets/css/fishfingers.ttf');
-        }
+        }*/
 *{
-    font-family: 'fishfingers';
+    /*font-family: 'fishfingers';*/
     box-sizing: border-box;
     margin:0;
     padding:0;
      
-}
-body{
-    background-image: url('http://leonarddupuis.fr/moon/img/background.svg');
-    background-size: cover;
-    background-repeat: repeat-y;
 }
 #graphic{
     position:relative;

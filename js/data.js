@@ -61,7 +61,6 @@ var canvas = $('#graphic'),
 	nbrItem2 = 2,
 	nbrItem3 = 2,
 	nbrItem4 = 2,
-	tom = "b",
 	paused = 0,
 	musicVolume = 0.5;
 function gameBlock(img, sizex, sizey, posx, posy){

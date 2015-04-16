@@ -133,14 +133,14 @@ $("#next").on('click',function(){ nextWorld();});
 $(window).resize(function() {
   
 });
-document.getElementById('music').addEventListener('canplaythrough', function() { //Wait until everything is loaded to enable start
+/*document.getElementById('music').addEventListener('canplaythrough', function() { //Wait until everything is loaded to enable start
 	if(world == 1)$('#go').css("background-image", "url('./assets/css/start"+world+tom+".svg')");
 	else $('#go').css("background-image", "url('./assets/css/start"+world+".svg')");
 	$("#go").css({"width":"30vh", "height":"15vh"});
 	$("#go").html("");
 	$('#go').prop("disabled", false);
 	drawBg(1,1);
-}, false);
+}, false);*/
 
 
 function goCss(){ //Update css with the world

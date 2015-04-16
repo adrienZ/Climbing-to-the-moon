@@ -1,11 +1,71 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
     <head>
+
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="hud.css">
-        <title>Document</title>
+        <title>Climbing to the moon</title>
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="styles/animate.css">
+        <link rel="stylesheet" href="styles/popup.css">
+        <link rel="stylesheet" href="styles/hud.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="img/asteroide.png" />
+
     </head>
+
     <body>
+        <!--HOME CONTENT-->
+        <div class="home">
+
+        <header>
+            <h1 class="">CLIMBING TO THE MOON</h1>
+            <h3 class="animated bounceInDown">The incredible JOURNEY of Tom and Lea</h3>
+        </header> 
+
+       
+       <!--PLAY BUTTON-->
+        <a href="#" id="button">Play</a>
+
+
+        <!--illustration in footer-->
+        <div id="moon" class="animated bounceInUp"></div>
+        <div id="avatar"class="animated bounceInUp"></div>
+
+
+
+        <div class="choose animated bounceInDown">
+            <!--cross for close the window-->
+            <a href="#" id="close"></a>
+            <!--TOM'S SIDE-->
+            <div class="character tom" id="tom1">
+                <!--text-->
+                <p>ur hero :</p>
+                <p>r</p>
+                <!--visual-->
+                <a href="#"><img src="img/tom_mini.svg" id="tom" alt="Choose Tom"></a>
+                <h4 class="name">Tom</h4>
+            </div>
+
+            <!--LEA'S SIDE-->
+            <div class="character lea" id="lea2">
+                <!--text-->
+                <p>Choose yo</p>
+                <p>o</p>
+                <!--visual-->
+                <a href="#"><img src="img/lea_mini.svg" id="lea" alt="Choose Léa"></a>
+                <h4 class="name">Léa</h4>
+            </div>
+
+       
+        </div>
+
+        <footer>
+            <a href="#" id="how" class="animated bounceInUp" >HOW TO PLAY ?</a>
+            <a href="#" id="about" class="animated bounceInUp">about us</a>  
+        </footer>
+</div>
+
+
         <div class="game">
             <canvas id="graphic" height="720" width="1280"></canvas>
             <button id='pause' class="topBtn" disabled></button> 
@@ -19,12 +79,16 @@
                 <div id="imgcont"><img id="imgTete" src="./assets/css/tomtete.svg" alt="Tête de tom"/></div>
             </div>
         </div>
-        <!-- scripts -->
+        
+        <!-- INTRO LINK-->
+        <div class="picture animated fadeIn"></div>
+        <a href="#" alt="go" id="intro">go !</a>
+        <!--scrips-->
         <audio id="music" loop src="assets/music/music.mp3"></audio>
         <audio id="sfx" src="assets/music/drop.wav"></audio>
         <audio id="lose" src="assets/music/lose.wav"></audio>
-        <script src="js/jquery.js" type="text/javascript"></script>
-        <!--<script src="main.js" type="text/javascript"></script>-->
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
         <script src="js/physic.js" type="text/javascript"></script>
         <script src="js/data.js" type="text/javascript"></script>
         <script src="js/game.js" type="text/javascript"></script>
