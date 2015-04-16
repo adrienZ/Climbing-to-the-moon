@@ -145,6 +145,7 @@ function dropAn(tryagain,sbt){//Animation de mort
 					}//Key event for spacebar
 				});
 				if(unlock)$('#next').prop("disabled", false);
+				$('#go').css("display", "block");
 			}
 			else {
 				scrollBG = 0;
@@ -156,6 +157,7 @@ function dropAn(tryagain,sbt){//Animation de mort
 				else $('#go').css("background-image", "url('./assets/css/start"+world+".svg')");
 				$("#go").css({"width":"30vh", "height":"15vh"});
 				$('#go').prop("disabled", false);
+				$('#go').css("display", "block");
 				$("#go").off('click');
 				goCss();
 				$("#go").on('click',function(){ restart(1);});

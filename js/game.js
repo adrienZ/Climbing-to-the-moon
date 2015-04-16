@@ -10,6 +10,7 @@ function start(){ //Start the game
 	else $('#go').css("background-image", "url('./assets/css/retry"+world+".svg')");
 	$("#go").css({"width":"6vh", "height":"6vh"});
 	$('#go').prop("disabled", true);
+	$('#go').css("display", "none");
 	$("#go").on('click',function(){ restart(0);}); //Enable pause button and the like
 	drawBg(1,1);
 	setInterval(draw, 15);
@@ -21,6 +22,7 @@ function start(){ //Start the game
 function restart(nextworld){
 	if(!nextworld)score= 0;
 	ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0; 
+	$('#go').css("display", "none");
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	if(!isLast){$('#imgTete').css("left", "0%");
 	$("#barI").css('left', "-107%");}
@@ -82,7 +84,7 @@ function nextWorld(){//Go to next world function
 		if(world<2) $('.picture').css({background: 'url(./img/story'+world+tom+'.svg) no-repeat center',display:'block','background-size':'cover',width:'100vw',height:"100vh",});
 		else $('.picture').css({background: 'url(./img/story'+world+tom+'.png) no-repeat center',display:'block','background-size':'cover',width:'100vw',height:"100vh",});
 		setTimeout(function(){$('.picture').css({"display":"none"});}, 4000);
-		bg = initbg();
+		bg = initbg();//Reset toute les valeurs, affiche la "cutscene" et redraw le background
 	}
 	else{
 		$('#next').css("display", "none");
@@ -101,7 +103,7 @@ function nextWorld(){//Go to next world function
 		$(window).off("keyup");
 		//$('#imgTete').attr("scr", "./assets/css/tomtete.svg");
 		$('.picture').css({background: 'url(./img/story5'+tom+'.png) no-repeat center',display:'block','background-size':'cover',width:'100vw',height:"100vh",});
-		setTimeout(function(){$('.picture').css({"display":"none"});}, 5000);
+		setTimeout(function(){$('.picture').css({"display":"none"});}, 5000); //Supprime le bouton nextworld car c'est le dernier monde
 	}
 }
 function musicControl(){ //Control the music

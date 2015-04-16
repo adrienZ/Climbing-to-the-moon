@@ -62,7 +62,7 @@ function newBlock(id, height, posY, width, img){ //Actually create the item
 		scrollAn(parseInt(height), scrollBG);
 	}
 	if(scrollBG + parseInt(height) == canvas.height()) ground =0;
-	step = worldStep + Math.round(blocks.length/10);
+	step = worldStep + Math.round(nbrblock/10);
 	blocks[id] = new gameBlock(img,width,height,0,posY);
 	if(blocks.length > 30) blocks.shift();
 	cacheBl = renderCache(canvas.width(), canvas.height(), 0);
@@ -70,12 +70,12 @@ function newBlock(id, height, posY, width, img){ //Actually create the item
 function nextBlock(){ //Determine next item's caracteristics
 	var img = getItem(0);
 	if(img.width>img.height){
-		var tempoW = Math.floor(viewportW/8)-((blocks.length)+world/2);
+		var tempoW = Math.floor(viewportW/8)-(nbrblock+world/2);
 		if(tempoW < 30) tempoW = 30;
 		var tempoH = img.height/img.width * tempoW;
 	}
 	else{
-		var tempoH = Math.floor(viewportH/6)-((blocks.length)+5/2);
+		var tempoH = Math.floor(viewportH/6)-((nbrblock)+5/2);
 		if(tempoH < 30) tempoH = 30;
 		var tempoW = img.width/img.height * tempoH;
 	}
