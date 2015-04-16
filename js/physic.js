@@ -2,17 +2,28 @@ if($(window).width()<330 || $(window).height()<500 ) {
 	$("#graphic").remove();
 	window.alert("Votre écran est trop petit pour jouer.");
 }
-else if($(window).width()<1280 && $(window).height()<720) {
-	$('#graphic').attr('width', $(window).width()-5);
-	$('#graphic').attr('height', (720/1280 * $(window).width()-5));
+else if($(window).width()<1280 || $(window).height()<720) {
+	var decalageCan = 5;
+	while((720/1280 * ($(window).width()-decalageCan))>$(window).height()){
+		decalageCan = decalageCan + 1;
+	}
+	$('#graphic').attr('width', $(window).width()-decalageCan);
+	$('#graphic').attr('height', (720/1280 * $(window).width()-decalageCan));
 }
+/*$('#graphic').attr('width', $(window).width());
+$('#graphic').attr('height', ($(window).height()));*/
 var viewportW = $('#graphic').attr('width');
 var viewportH = $('#graphic').attr('height');
+$('.game').css('width', viewportW);
+$('.game').css('height', viewportH);
+$('.game').css('top', ($(window).height()-viewportH)/2);
+$('.game').css('left', ($(window).width()-viewportW)/2);
 var blocks = new Array();
 function physic(){
 	var item1 = getItem(1);
 	var getH = Math.round(item1.height/item1.width * viewportW/4);
 	blocks[0] = new gameBlock(item1, viewportW/4, getH, canvas.width()/2-((viewportW/4)/2), canvas.height()-getH);
+	nbrblock = 1;
 	nextBlock();
 	keyEvent();
 	iCheckFail(1);
@@ -36,9 +47,11 @@ function checkFinal(posX, sizeX, size){
 	{
 		var center = canvasM-(posX+(objM));
 		score += world*Math.abs(Math.round(100-(Math.abs(center)/75)*100));
+		nbrblock++;
 		if(checkScore()){
 			$('#next').prop("disabled", false);
 			unlock = 1;
+			$('#next').css("background-image", "url('./assets/css/world"+(world+1)+unlock+".svg')");
 		}
 		document.getElementById('sfx').play();
 		nextBlock();
@@ -48,6 +61,7 @@ function checkFinal(posX, sizeX, size){
 		iCheckFail(0);
 		iMoveRight(0);
 		$('#pause').prop("disabled", true);
+		$(window).off("keyup");
 		document.getElementById('lose').play();
 		$(window).off("keypress");
 	}
@@ -57,17 +71,18 @@ function newBlock(id, height, posY, width, img){
 	//width = img.width/img.height * height;
 	//console.log("Image: "+ img.src + " " + img.width +'*'+ img.height + " " + width +'*'+ height);
 	move = true;
+	$('#nbrblock').html(nbrblock);
+	$('#blockscore').html(score);
 	if(blocks.length >= 4) {
 		scrollAn(parseInt(height), scrollBG);
 	}
 	if(scrollBG + parseInt(height) == canvas.height()) ground =0;
 	step = worldStep + Math.round(blocks.length/10);
 	blocks[id] = new gameBlock(img,width,height,0,posY);
+	if(blocks.length > 30) blocks.shift();
 	cacheBl = renderCache(canvas.width(), canvas.height(), 0);
 }
 function nextBlock(){
-	$('#nbrblock').html(blocks.length);
-	$('#blockscore').html(score);
 	var img = getItem(0);
 	if(img.width>img.height){
 		var tempoW = Math.floor(viewportW/8)-((blocks.length)+world/2);
@@ -96,6 +111,7 @@ function rektangle(){ //Vérifie que l'item ne sorte pas des limites du jeu
 		dropAn(1);
 		$('#pause').prop("disabled", true);
 		document.getElementById('lose').play();
+		$(window).off("keyup");
 		$(window).off("keypress");
 	}
 

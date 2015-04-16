@@ -11,6 +11,9 @@ function start(){
 	setInterval(draw, 15);
 	if(music)document.getElementById('music').volume= 0.5;
 	document.getElementById('music').play();
+	$(document).on('keyup',function(event){
+	if(event.keyCode == 27) pause();
+	console.log(event.keyCode);});
 	physic();
 }
 function restart(nextworld){
@@ -19,26 +22,32 @@ function restart(nextworld){
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     blocks = [];
     scrollBG = 0;
+    $("#go").off('click');
+	$("#go").on('click',function(){ restart(0);});
     ground = 1;
     drawBg(1,1);
+    step = worldStep;
     $('#pause').prop("disabled", false);
 	$('#go').prop("disabled", true);
 	$('#go').html("Try Again");
+	$(document).on('keyup',function(event){
+	if(event.keyCode == 27) pause();
+	console.log(event.keyCode);});
 	physic();
 }
 function checkScore(){//La haute à atteindre pour le niveau suivant
 	switch(world){
 		case 1:
-			if(blocks.length>0) return 1;
+			if(nbrblock>0) return 1;
 			break;
 		case 2:
-			if(blocks.length>0) return 1;
+			if(nbrblock>0) return 1;
 			break;
 		case 3:
-			if(blocks.length>0) return 1;
+			if(nbrblock>0) return 1;
 			break;
 		case 4 :
-			if(blocks.length>999999) return 1;
+			if(nbrblock>999999) return 1;
 			break;
 		default:
 			return 0;
@@ -51,10 +60,13 @@ function nextWorld(){
 		$('#next').prop("disabled", true);
 		dropAn(0);
 		worldStep += 3;
+		totalBlk += nbrblock;
+		nbrblock = 0;
 		iCheckFail(0);
 		iMoveRight(0);
 		unlock = 0;
 		$(window).off("keypress");
+		$(window).off("keyup");
 		world++;
 		bg = initbg();
 	}
@@ -63,14 +75,19 @@ function musicControl(){
 	if(music){
 		$('#musicControl').prop("disabled", true);
 		music = 0;
-		$('#musicControl').html("Music On");
+		//$('#musicControl').html("Music On");
+		if(world>1) $('#musicControl').css("background-image", 'url("./assets/css/mute'+world+'.svg")');
+		else $('#musicControl').css("background-image", 'url("./assets/css/mute'+world+tom+'.svg")');
 		document.getElementById('music').volume= 0;
+		console.log("okojojo");
 		setTimeout(function(){$('#musicControl').prop("disabled", false);}, 10);
 	}
 	else{
 		$('#musicControl').prop("disabled", true);
 		music = 1;
-		$('#musicControl').html("Music Off");
+		//$('#musicControl').html("Music Off");
+		if(world>1) $('#musicControl').css("background-image", 'url("./assets/css/sound'+world+'.svg")');
+		else $('#musicControl').css("background-image", 'url("./assets/css/sound'+world+tom+'.svg")');
 		if(!paused)document.getElementById('music').volume= 0.5;
 		setTimeout(function(){$('#musicControl').prop("disabled", false);}, 10);
 	}
@@ -83,7 +100,9 @@ function pause(){
 		paused = 0;
 		iCheckFail(1);
 		iMoveRight(1);
-		$('#pause').html("Pause");
+		if(world>1) $('#pause').css("background-image", 'url("./assets/css/pause'+world+'.svg")');
+		else $('#pause').css("background-image", 'url("./assets/css/pause'+world+tom+'.svg")');
+		//$('#pause').html("Pause");
 		setTimeout(function(){$('#pause').prop("disabled", false);}, 10);
 	}
 	else{
@@ -93,7 +112,9 @@ function pause(){
 		$(window).off("keypress");
 		iCheckFail(0);
 		iMoveRight(0);
-		$('#pause').html("Play");
+		//$('#pause').html("Play");
+		if(world>1) $('#pause').css("background-image", 'url("./assets/css/play'+world+'.svg")');
+		else $('#pause').css("background-image", 'url("./assets/css/play'+world+tom+'.svg")');
 		setTimeout(function(){$('#pause').prop("disabled", false);}, 10);
 	}
 }
@@ -110,3 +131,25 @@ document.getElementById('music').addEventListener('canplaythrough', function() {
 	$('#go').prop("disabled", false);
 	drawBg(1,1);
 }, false);
+
+
+function goCss(){
+	if(world>1){
+		$('#pause').css("background-image", "url('./assets/css/pause"+world+".svg')");
+		if(music) $('#musicControl').css("background-image", "url('./assets/css/sound"+world+".svg')");
+		else $('#musicControl').css("background-image", "url('./assets/css/mute"+world+".svg')");
+		//$('#go').css("background-image", "url(../assets/css/start"+world+".svg");
+		$('#scorepoint').css("background-image", "url('./assets/css/score"+world+".svg')");
+	}
+	else{
+		$('#pause').css("background-image", "url('./assets/css/pause"+world+tom+".svg')");
+		if(music) $('#musicControl').css("background-image", "url('./assets/css/sound"+world+tom+".svg')");
+		else $('#musicControl').css("background-image", "url('./assets/css/mute"+world+tom+".svg')");
+		//$('#go').css("background-image", "url(../assets/css/start"+world+tom+".svg");
+		//$('#next').css("background-image", "url(../assets/css/pause"+world+tom+".svg");
+		$('#scorepoint').css("background-image", "url('./assets/css/score"+world+tom+".svg')");
+
+	}
+	if(world<4) $('#next').css("background-image", "url('./assets/css/world"+(world+1)+unlock+".svg')");
+}
+goCss();

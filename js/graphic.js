@@ -74,21 +74,23 @@ function kek(ctx2,doBg){
 		ctx2.beginPath();
 		ctx2.moveTo(canvas.width()/2+((viewportW/4)/2),0);
 		ctx2.lineTo(canvas.width()/2+((viewportW/4)/2),canvas.height());
+		ctx2.strokeStyle = "rgba(100,100,100,0.2)";
 		ctx2.stroke();
 		ctx2.beginPath();
 		ctx2.moveTo(canvas.width()/2-((viewportW/4)/2),0);
 		ctx2.lineTo(canvas.width()/2-((viewportW/4)/2),canvas.height());
+		ctx2.strokeStyle = "rgba(100,100,100,0.2)";
 		ctx2.stroke();
-		if(blocks.length<=35){
+		//if(blocks.length<=35){
 	    	for(var i = 0; i < blocks.length-1; i++){
 		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 			}
-	    }
-	    else{ 
+	    //}
+	    /*else{ 
 	    	for(var i = blocks.length-35; i < blocks.length-1; i++){
 		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
 			}
-		}
+		}*/
 	}
 
 }
@@ -154,6 +156,9 @@ function dropAn(tryagain,sbt){
 				cacheBl = renderCache(canvas.width(), canvas.height(), 2);
 				$('#go').html("Start");
 				$('#go').prop("disabled", false);
+				$("#go").off('click');
+				goCss();
+				$("#go").on('click',function(){ restart(1);});
 			}
 		}
 	}

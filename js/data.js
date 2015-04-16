@@ -7,7 +7,7 @@ function createImage(src, width, height){
 }
 //AJOUTER LES ITEM SUIVANT CETTE SYNTAXE: var nom = createImage(src, width, height);. Penser à modifier la fonction getItem également. Pour les background, suivre la syntaxe en dessous
 var basebg1 = new Image();
-	if(tom) basebg1.src= "assets/bg/base1.png";
+	if(tom == "b") basebg1.src= "assets/bg/base1.png";
 	else basebg1.src= "assets/bg/base1.png";
 	basebg1.height = viewportH;
 	basebg1.width = viewportW;
@@ -16,7 +16,7 @@ var basebg2 = new Image();
 	basebg2.height = viewportH;
 	basebg2.width = viewportW;
 var bg1 = new Image();
-	if(tom) bg1.src= "assets/bg/bg1.svg";
+	if(tom == "b") bg1.src= "assets/bg/bg1.svg";
 	else bg1.src= "assets/bg/bg1.svg";
 	bg1.width = viewportW;
 	bg1.height = viewportH;
@@ -27,16 +27,16 @@ var bg4 = new Image();
 	bg4.src= "assets/bg/bg4.svg";
 	bg4.width = viewportW;
 var lit = createImage('assets/world1/lit.svg', 1150, 577);
-var peluche = createImage('assets/world1/peluche.svg', 318, 318);
+var armoire = createImage('assets/world1/armoire.svg', 318, 318);
 var maison = createImage('assets/world2/maison.svg', 255, 145);
 var etage = createImage('assets/world2/etage.svg', 547, 219);
 var toit = createImage('assets/world2/toit.svg', 354, 68);
 var nuage = createImage('assets/world3/nuage.svg', 488, 276);
 var nuage2 = createImage('assets/world3/nuage2.svg', 778, 480);
-var terre = createImage('assets/world4/terre.svg', 758, 209);
+//var terre = createImage('assets/world4/terrec.svg', 758, 209);
+var terre = createImage('assets/world4/terrec.svg', 412, 202);
 var aste = createImage('assets/world4/astero.png', 1032, 582);
-var terref = createImage('assets/world4/terref.svg', 876, 876);
-
+var terref = createImage('assets/world4/terrecf.svg', 876, 876);
 
 
 
@@ -47,6 +47,8 @@ var canvas = $('#graphic'),
 	ctx = canvas[0].getContext('2d'),//Initialise les élements du canvas
 	step = 0, // Variable qui sert à varier la vitesse
 	score = 0, //Score global
+	nbrblock,
+	totalBlk = 0, //Nombre de block
 	world = 1, //Le monde actuel, démarre à 1
 	scrollBG = 0, //Décalage du Background par rapport au bas. A ne pas modifier en dehors des fonctions prévus à cet effet
 	move = 0, //Si le background est en train de monter
@@ -59,7 +61,7 @@ var canvas = $('#graphic'),
 	nbrItem2 = 2,
 	nbrItem3 = 2,
 	nbrItem4 = 2,
-	tom = 1,
+	tom = "b",
 	paused = 0,
 	musicVolume = 0.5;
 function gameBlock(img, sizex, sizey, posx, posy){
@@ -91,9 +93,6 @@ function initbg(){
 		case 4:
 			return bg4;
 			break;
-		case 5:
-			//return bg5;
-			break;
 	}
 }
 
@@ -107,7 +106,7 @@ function getItem(def){
 						return lit;
 						break;
 					case 2:
-						return peluche;
+						return armoire;
 						break;
 				};
 		case 2://item monde 2
@@ -135,7 +134,7 @@ function getItem(def){
 			}
 		case 4://item monde 4
 			if(def) return terre;
-			switch(Math.floor((Math.random()*nbrItem3)+1)){
+			switch(Math.floor((Math.random()*nbrItem4)+1)){
 				case 1:
 					return aste;
 					break;

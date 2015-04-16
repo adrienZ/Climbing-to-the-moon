@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<title>Coming soon</title>
-	</head>
-	<body style="margin:0;padding:0;">
-		
-		<canvas id="graphic" height="720" width="1280" width style="border:thin solid grey;"></canvas>
-		<div id="blockscore"></div>
-		<div id="nbrblock"></div>
-		<button id='go' disabled>Loading...</button>
-		<button id='next' disabled>Next world</button>
-		<button id='musicControl'>Music Off</button>
-		<button id='pause' disabled>Pause</button>
-
-	
-	
-		<!-- scripts -->
-		<audio id="music" loop src="assets/music/music.mp3"></audio>
-		<audio id="sfx" src="assets/music/drop.wav"></audio>
-		<audio id="lose" src="assets/music/lose.wav"></audio>
-		<script src="js/jquery.js" type="text/javascript"></script>
-		<!--<script src="main.js" type="text/javascript"></script>-->
-		<script src="js/physic.js" type="text/javascript"></script>
-		<script src="js/data.js" type="text/javascript"></script>
-		<script src="js/game.js" type="text/javascript"></script>
-		<script src="js/graphic.js" type="text/javascript"></script>
-	</body>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="hud.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="game">
+            <canvas id="graphic" height="720" width="1280"></canvas>
+            <button id='pause' class="topBtn" disabled></button> 
+            <button id='musicControl' class="topBtn"></button>
+            <div id="scorepoint"><span id="blockscore"></span></div>
+            <!--<div id="nbrblock"></div>-->
+            <button id='go' class="botBtn" disabled>Loading...</button>
+            <button id='next' class="botBtn" disabled></button>
+        </div>
+                <!-- scripts -->
+        <audio id="music" loop src="assets/music/music.mp3"></audio>
+        <audio id="sfx" src="assets/music/drop.wav"></audio>
+        <audio id="lose" src="assets/music/lose.wav"></audio>
+        <script src="js/jquery.js" type="text/javascript"></script>
+        <!--<script src="main.js" type="text/javascript"></script>-->
+        <script src="js/physic.js" type="text/javascript"></script>
+        <script src="js/data.js" type="text/javascript"></script>
+        <script src="js/game.js" type="text/javascript"></script>
+        <script src="js/graphic.js" type="text/javascript"></script>
+    </body>
 </html>

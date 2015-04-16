@@ -1,0 +1,75 @@
+/*@font-face {
+    font-family: 'fishfingers';
+    src: url('../fonts/FishfingersLight.ttf');
+        }
+    */
+*{
+ /*font-family: 'fishfingers';*/
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+     
+}
+body{
+    background-image: url('http://leonarddupuis.fr/moon/img/background.svg');
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+#graphic{
+    position:relative;
+    display:block;
+}
+#pause {
+    left: 5vh;
+}
+
+#musicControl {
+    left: 12vh;
+}
+.topBtn{
+    border:none;
+    width: 6vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 6vh;
+    position:absolute;
+    top:2vh;
+    background-color: transparent;
+}
+#scorepoint {
+    position: absolute;
+    width: 24vh;
+    height: 6vh;
+    right: 5vh;
+    top:2vh;
+    background-size: 100% 100%;
+}
+#blockscore{
+    float:left;
+    line-height: 6vh;
+    padding-left:5px;
+    color:white;
+    font-size:1.5em;
+}
+#go{
+    left: 10vh;
+}
+#next{
+    right: 10vh;
+}
+.botBtn{
+    position:absolute;
+    bottom:3vh;
+    border:none;
+    width: 10vh;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 10vh;
+    position:absolute;
+    background-color: transparent;
+}
+.game{
+    position:relative;
+}
