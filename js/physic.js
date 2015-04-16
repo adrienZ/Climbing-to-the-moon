@@ -1,46 +1,24 @@
-if($(window).width()<330 || $(window).height()<500 ) {
-	$("#graphic").remove();
-	window.alert("Votre écran est trop petit pour jouer.");
-}
-else if($(window).width()<1280 || $(window).height()<720) {
-	var decalageCan = 5;
-	while((720/1280 * ($(window).width()-decalageCan))>$(window).height()){
-		decalageCan = decalageCan + 1;
-	}
-	$('#graphic').attr('width', $(window).width()-decalageCan);
-	$('#graphic').attr('height', (720/1280 * $(window).width()-decalageCan));
-}
 /*$('#graphic').attr('width', $(window).width());
 $('#graphic').attr('height', ($(window).height()));*/
-var viewportW = $('#graphic').attr('width');
-var viewportH = $('#graphic').attr('height');
-$('.game').css('width', viewportW);
-$('.game').css('height', viewportH);
-$('.game').css('top', ($(window).height()-viewportH)/2);
-$('.game').css('left', ($(window).width()-viewportW)/2);
 var blocks = new Array();
-function physic(){
+function physic(){ //initialise les premiers objets et les loops de physique
 	var item1 = getItem(1);
 	var getH = Math.round(item1.height/item1.width * viewportW/4);
 	blocks[0] = new gameBlock(item1, viewportW/4, getH, canvas.width()/2-((viewportW/4)/2), canvas.height()-getH);
 	nbrblock = 1;
+	$(window).off("keypress");
 	nextBlock();
 	keyEvent();
 	iCheckFail(1);
 	iMoveRight(1);
 }
-function checkFinal(posX, sizeX, size){
+function checkFinal(posX, sizeX, size){ //Défini si l'item est bien placé. (SEULEMENT PAR RAPPORT A CELUI DU DESSOUS SINON LE JEU DEVIENT ENNUYEUX A JOUER)
 	var weirdConstr = false;
 	var objM = posX+sizeX/2;
 	if(size == 1 && posX < (canvasM+sizeX) && (posX+sizeX) > (canvasM-sizeX)) var isGood = true;
 	else if((posX < (canvasM+100) && (posX+sizeX) > (canvasM-100)) 
-		&& ((objM)+10 > blocks[size-2].posx && (objM)-10 < blocks[size-2].posx+blocks[size-2].sizex))
-		/*&& (blocks.length > 3 && (objM)+10 > blocks[size-3].posx && (objM)-10 < blocks[size-3].posx+blocks[size-3].sizex))*/
-	 		var isGood = true;
-	/*else if(blocks.length > 3 && !((objM)+10 > blocks[size-3].posx && (objM)-10 < blocks[size-3].posx+blocks[size-3].sizex)){
-		weirdConstr = true;
-		var isGood = false;
-	}*/
+	&& ((objM)+10 > blocks[size-2].posx && (objM)-10 < blocks[size-2].posx+blocks[size-2].sizex))
+		var isGood = true;
 	else var isGood = false;
 	if(isGood)
 	{
@@ -48,7 +26,8 @@ function checkFinal(posX, sizeX, size){
 		score += world*Math.abs(Math.round(100-(Math.abs(center)/75)*100));
 		nbrblock++;
 		var checked = checkScore();
-		if(checked == 0){
+		if(isLast == 1){}
+		else if(checked == 0){
 			$('#next').prop("disabled", false);
 			unlock = 1;
 			$('#unlock').html("Next world unlocked!");
@@ -65,11 +44,11 @@ function checkFinal(posX, sizeX, size){
 		nextBlock();
 	}
 	else{
+		$(window).off("keyup");
 		dropAn(1);
 		iCheckFail(0);
 		iMoveRight(0);
 		$('#pause').prop("disabled", true);
-		$(window).off("keyup");
 		document.getElementById('lose').play();
 		$(window).off("keypress");
 	}
@@ -111,12 +90,12 @@ function nextBlock(){ //Determine next item's caracteristics
 }
 function rektangle(){ //Vérifie que l'item ne sorte pas des limites du jeu
 	if(blocks[blocks.length-1].posx > (canvasM+150)){
+		$(window).off("keyup");
 		iCheckFail(0);
 		iMoveRight(0);
 		dropAn(1);
 		$('#pause').prop("disabled", true);
 		document.getElementById('lose').play();
-		$(window).off("keyup");
 		$(window).off("keypress");
 	}
 }

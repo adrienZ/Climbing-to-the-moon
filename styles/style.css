@@ -236,7 +236,7 @@ footer a
 .picture 
 {
     
-    background: url(../img/story1b.svg) no-repeat center; /*current picture story*/
+    background: url(../img/story0b.svg) no-repeat center; /*current picture story*/
     background-size: contain;
     width: 100vw;
     height: 100vh;

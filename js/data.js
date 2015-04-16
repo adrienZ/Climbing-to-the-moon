@@ -1,4 +1,4 @@
-function createImage(src, width, height){
+function createImage(src, width, height){ //Définition des "sprites" des objets
 	var image = new Image();
 	image.src = src;
 	image.width = width;
@@ -7,8 +7,7 @@ function createImage(src, width, height){
 }
 //AJOUTER LES ITEM SUIVANT CETTE SYNTAXE: var nom = createImage(src, width, height);. Penser à modifier la fonction getItem également. Pour les background, suivre la syntaxe en dessous
 var basebg1 = new Image();
-	if(tom == "b") basebg1.src= "assets/bg/base1.png";
-	else basebg1.src= "assets/bg/base1.png";
+	basebg1.src= "assets/bg/base1.png";
 	basebg1.height = viewportH;
 	basebg1.width = viewportW;
 var basebg2 = new Image();
@@ -33,7 +32,6 @@ var etage = createImage('assets/world2/etage.svg', 547, 219);
 var toit = createImage('assets/world2/toit.svg', 354, 68);
 var nuage = createImage('assets/world3/nuage.svg', 488, 276);
 var nuage2 = createImage('assets/world3/nuage2.svg', 778, 480);
-//var terre = createImage('assets/world4/terrec.svg', 758, 209);
 var terre = createImage('assets/world4/terrec.svg', 412, 202);
 var aste = createImage('assets/world4/astero.png', 1032, 582);
 var terref = createImage('assets/world4/terrecf.svg', 876, 876);
@@ -61,8 +59,8 @@ var canvas = $('#graphic'),
 	nbrItem2 = 2,
 	nbrItem3 = 2,
 	nbrItem4 = 2,
-	paused = 0,
-	musicVolume = 0.5;
+	paused = 0,//si le jeu est en pause
+	isLast = 0; //Si c'est le dernier monde
 function gameBlock(img, sizex, sizey, posx, posy){
 	this.img = img;
 	this.sizex = sizex;
@@ -78,7 +76,7 @@ function moveUp(oldPos, step){
 	return oldPos+step; //Fait monter l'objet
 }
 var bg = initbg(); //initialise le premier background
-function initbg(){
+function initbg(){ //Donne le background correspondant au monde
 	switch(world){
 		case 1:
 			return bg1;

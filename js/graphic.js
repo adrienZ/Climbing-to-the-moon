@@ -14,7 +14,7 @@ function scrollAn(h,sH){
 	//Animation de scroll
 }
 var pat;
-function drawBg(isFirst, newBg){
+function drawBg(isFirst, newBg){ //Draw the background
 	try{
 		if(newBg) pat=ctx.createPattern(bg,"repeat");
 		ctx.beginPath();
@@ -44,11 +44,11 @@ function renderCache(width, height, doBg){
 	    buffer.width = width;
 	    buffer.height = height;
 	    var ctx2 = buffer.getContext('2d');
-	    kek(ctx2,doBg);
+	    cache(ctx2,doBg);
 	    return buffer;
 }
 var cacheBg, cacheBl;
-function kek(ctx2,doBg){
+function cache(ctx2,doBg){ //Draw specified items into a buffer
 	if(doBg == 1){
 		var pat2=ctx2.createPattern(bg,"repeat");
 		ctx2.rect(0,0,canvas.width(), canvas.height());
@@ -81,20 +81,13 @@ function kek(ctx2,doBg){
 		ctx2.lineTo(canvas.width()/2-((viewportW/4)/2),canvas.height());
 		ctx2.strokeStyle = "rgba(100,100,100,0.2)";
 		ctx2.stroke();
-		//if(blocks.length<=35){
-	    	for(var i = 0; i < blocks.length-1; i++){
-		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
-			}
-	    //}
-	    /*else{ 
-	    	for(var i = blocks.length-35; i < blocks.length-1; i++){
-		 		ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
-			}
-		}*/
+	    for(var i = 0; i < blocks.length-1; i++){
+			ctx2.drawImage(blocks[i].img, blocks[i].posx, blocks[i].posy, blocks[i].sizex, blocks[i].sizey);
+		}
 	}
 
 }
-function draw(){
+function draw(){ //Dessine le contenu en cache ainsi que les objets en train de bouger
 	ctx.setTransform(1,0,0,1,0,0);
 	if(blocks.length<=4) {
 		ctx.drawImage(cacheBg,0,0);
@@ -111,7 +104,7 @@ function draw(){
 	ctx.drawImage(blocks[blocks.length-1].img, blocks[blocks.length-1].posx, blocks[blocks.length-1].posy, blocks[blocks.length-1].sizex, blocks[blocks.length-1].sizey);
 }
 var ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0;
-function dropAn(tryagain,sbt){
+function dropAn(tryagain,sbt){//Animation de mort
 	$('#go').prop("disabled", true);
 	$('#next').prop("disabled", true);
 	$('#pause').prop("disabled", true);
@@ -143,9 +136,14 @@ function dropAn(tryagain,sbt){
 			go = false;
 		}
 		if(go) setTimeout(function(){incre(tryagain);}, 15);
-		else {
+		else {//Quand l'animation est finie, continuer le jeu
 			if(tryagain){
 				$('#go').prop("disabled", false);
+				$(window).on("keypress", function(event){
+					if(event.charCode == 32){
+						restart(1);
+					}//Key event for spacebar
+				});
 				if(unlock)$('#next').prop("disabled", false);
 			}
 			else {
@@ -161,9 +159,13 @@ function dropAn(tryagain,sbt){
 				$("#go").off('click');
 				goCss();
 				$("#go").on('click',function(){ restart(1);});
+				$(window).on("keypress", function(event){
+					if(event.charCode == 32){
+						restart(1);
+					}//Key event for spacebar
+				});
 			}
 		}
 	}
 	setTimeout(function(){incre(tryagain);}, 200);
-	//Animation de mort
 }

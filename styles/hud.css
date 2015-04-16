@@ -64,7 +64,7 @@
     cursor: pointer;
 }
 .game{
-    position:relative;
+    position:absolute;
 }
 #unlock{
     right: 22vh;

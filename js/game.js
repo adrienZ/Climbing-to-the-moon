@@ -15,15 +15,15 @@ function start(){ //Start the game
 	setInterval(draw, 15);
 	if(music)document.getElementById('music').volume= 0.5;
 	document.getElementById('music').play();//Play music (no volume if it's off)
-	$(document).on('keyup',function(event){if(event.keyCode == 27) pause();}); //enable pause on escape
+	$(window).on('keyup',function(event){if(event.keyCode == 27) pause();}); //enable pause on escape
 	physic(); //launch physic
 }
 function restart(nextworld){
 	if(!nextworld)score= 0;
 	ani05 = 0, ani05n = 0, ani30 = 0, ani10 = 0; 
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-	$('#imgTete').css("left", "0%");
-	$("#barI").css('left', "-107%");
+	if(!isLast){$('#imgTete').css("left", "0%");
+	$("#barI").css('left', "-107%");}
     blocks = [];
     scrollBG = 0;//Reset score and anim
     $("#go").off('click');
@@ -36,35 +36,35 @@ function restart(nextworld){
 	if(world == 1)$('#go').css("background-image", "url('./assets/css/retry"+world+tom+".svg')");
 	else $('#go').css("background-image", "url('./assets/css/retry"+world+".svg')");
 	$("#go").css({"width":"6vh", "height":"6vh"});
-	$(document).on('keyup',function(event){if(event.keyCode == 27) pause();});
+	$(window).on('keyup',function(event){if(event.keyCode == 27) pause();});
 	physic();//Same as start...
 }
 function checkScore(){//La hauteur à atteindre pour le niveau suivant
 	switch(world){
 		case 1:
-			if(nbrblock>=10) return 0;
+			if(nbrblock>=0) return 0;
 			else return ((nbrblock/10)*100);
 			break;
 		case 2:
-			if(nbrblock>=20) return 0;
+			if(nbrblock>=0) return 0;
 			else return ((nbrblock/20)*100);
 			break;
 		case 3:
-			if(nbrblock>=30) return 0;
+			if(nbrblock>=0) return 0;
 			else return ((nbrblock/30)*100);
 			break;
 		case 4 :
-			if(nbrblock>=999) return 0;
-			else return ((nbrblock/999)*100);
+			if(nbrblock>=0) return 0;
+			else return ((nbrblock/40)*100);
 			break;
 		default:
-			return 0;
+			return 999;
 			break;
 	}
 }
 
 function nextWorld(){//Go to next world function
-	if(world != 5){
+	if(world < 4){
 		$('#next').prop("disabled", true);
 		$("#unlock").html("");
 		dropAn(0);
@@ -79,7 +79,29 @@ function nextWorld(){//Go to next world function
 		$(window).off("keypress");
 		$(window).off("keyup");
 		world++;
+		if(world<2) $('.picture').css({background: 'url(./img/story'+world+tom+'.svg) no-repeat center',display:'block','background-size':'cover',width:'100vw',height:"100vh",});
+		else $('.picture').css({background: 'url(./img/story'+world+tom+'.png) no-repeat center',display:'block','background-size':'cover',width:'100vw',height:"100vh",});
+		setTimeout(function(){$('.picture').css({"display":"none"});}, 4000);
 		bg = initbg();
+	}
+	else{
+		$('#next').css("display", "none");
+		$("#unlock").html("");
+		dropAn(0);
+		worldStep += 1;
+		totalBlk += nbrblock;
+		nbrblock = 0;
+		iCheckFail(0);
+		iMoveRight(0);
+		unlock = 0;
+		isLast = 1;
+		$('#imgTete').css("left", "50%");
+		$("#barI").css('left', "-112%");
+		$(window).off("keypress");
+		$(window).off("keyup");
+		//$('#imgTete').attr("scr", "./assets/css/tomtete.svg");
+		$('.picture').css({background: 'url(./img/story5'+tom+'.png) no-repeat center',display:'block','background-size':'cover',width:'100vw',height:"100vh",});
+		setTimeout(function(){$('.picture').css({"display":"none"});}, 5000);
 	}
 }
 function musicControl(){ //Control the music
@@ -89,7 +111,6 @@ function musicControl(){ //Control the music
 		if(world>1) $('#musicControl').css("background-image", 'url("./assets/css/mute'+world+'.svg")');
 		else $('#musicControl').css("background-image", 'url("./assets/css/mute'+world+tom+'.svg")');
 		document.getElementById('music').volume= 0;
-		console.log("okojojo");
 		setTimeout(function(){$('#musicControl').prop("disabled", false);}, 10);
 	}
 	else{
@@ -130,9 +151,6 @@ $("#go").on('click',function(){ start();});
 $("#pause").on('click',function(){ pause();});
 $("#musicControl").on('click',function(){ musicControl();});
 $("#next").on('click',function(){ nextWorld();});
-$(window).resize(function() {
-  
-});
 /*document.getElementById('music').addEventListener('canplaythrough', function() { //Wait until everything is loaded to enable start
 	if(world == 1)$('#go').css("background-image", "url('./assets/css/start"+world+tom+".svg')");
 	else $('#go').css("background-image", "url('./assets/css/start"+world+".svg')");
@@ -159,6 +177,6 @@ function goCss(){ //Update css with the world
 		$('#nbrbl').css("background-image", "url('./assets/css/bloc"+world+tom+".svg')");
 
 	}
-	if(world<4) $('#next').css("background-image", "url('./assets/css/world"+(world+1)+unlock+".svg')");
+	if(world<=4) $('#next').css("background-image", "url('./assets/css/world"+(world+1)+unlock+".svg')");
 }
 goCss();
