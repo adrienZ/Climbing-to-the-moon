@@ -27,15 +27,16 @@ function checkFinal(posX, sizeX, size){ //Défini si l'item est bien placé. (SE
 		nbrblock++;
 		var checked = checkScore();
 		if(isLast == 1){}
-		else if(checked == 0){
+		else if(checked == 0 && unlock != 1){
 			$('#next').prop("disabled", false);
 			unlock = 1;
 			$('#unlock').html("Next world unlocked!");
 			$('#imgTete').css("left", "95%");
 			$("#barI").css('left', "0%");
 			$('#next').css("background-image", "url('./assets/css/world"+(world+1)+unlock+".svg')");
+			document.getElementById('unlockSfx').play();
 		}
-		else{
+		else if(checked != 0){
 			if(checked-5 > 0) $('#imgTete').css("left", checked-5+"%");
 			else $('#imgTete').css("left", "0%");
 			$("#barI").css('left', (checked-112)+"%");
