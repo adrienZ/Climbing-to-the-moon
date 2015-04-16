@@ -92,14 +92,12 @@ footer
     margin-left: 10vw;
     margin-right: 10vw;
     width: 80vw;
-    font-family: 50px;
 
 }
 
 footer span
 {
     
-    display: inline;
     font-size: 5vh;
     color: #F9F9F9;
     text-decoration: none;
@@ -178,7 +176,7 @@ footer span
 
 
 
-    footer a:hover
+    footer span:hover
     {
         
         text-decoration: underline;
@@ -193,7 +191,7 @@ footer span
 
 @media screen and (max-width: 979px){ /*ecrans de moins de 979px*/
     
-    footer a
+    footer span
     {
         
         display: block;
