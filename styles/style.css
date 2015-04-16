@@ -96,13 +96,14 @@ footer
 
 }
 
-footer a
+footer span
 {
     
     display: inline;
     font-size: 5vh;
     color: #F9F9F9;
     text-decoration: none;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 1);
 
 }
 #about {float: right;}
